@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Header from './components/Header/Header.jsx'
 import Footer from './components/Footer/Footer.jsx'
+import Dashboard from './components/Dashboard/Dashboard.jsx'
 import './App.css'
 
 function App() {
@@ -8,8 +9,9 @@ function App() {
 
   return (
     <div className="app">
-      <Header></Header>
-      <Footer></Footer>
+      <Header/>
+      <Dashboard/>
+      <Footer/>
     </div>
   )
 }

@@ -16,10 +16,7 @@ function Header({ currentPage, navigate }) {
         <h2 className="title">TaskManager</h2>
       </div>
 
-      <div
-        className={`hamburger ${menuOpen ? 'active' : ''}`}
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
+      <div className={`hamburger ${menuOpen ? 'active' : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>

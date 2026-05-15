@@ -42,7 +42,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <div className="footer-copyrights">
-          <p>© {currentYear} TaskManager. All rights reserved. Built with ❤️ for productivity.</p>
+          <p>© {currentYear} TaskManager. All rights reserved. Built with &#10084; for productivity.</p>
         </div>
       </div>
     </footer>

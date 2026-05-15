@@ -1,0 +1,31 @@
+.main-section {
+  background-color: rgb(247, 249, 250);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin-top: 30px;
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .main-section {
+    grid-template-columns: 1fr 2fr;
+    gap: 7px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1023px) {
+  .main-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: 90%;
+    margin: 5% auto;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 600px) {
+  .main-section {
+    grid-template-columns: 1fr;
+    width: 95%;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,394 @@
+.task-panel-section {
+  position: relative;
+  margin: 10px 5px 10px 90px;
+  background-color: white;
+  padding: 20px;
+  width: 75%;
+  border-radius: 13px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 15%);
+  margin-bottom: 20px;
+  left: 15px;
+}
+
+.task-panel-title {
+  font-size: 19px;
+  margin: 10px 10px 13px 2px;
+}
+
+.task-panel-section input,
+.task-panel-section select {
+  font-size: 14px;
+  margin: 10px 10px 13px 8px;
+  padding: 10px;
+  width: 95%;
+  max-width: 100%;
+  border-radius: 6.5px;
+  border: 2px solid rgba(0, 0, 0, 0.168);
+  outline-color: rgb(93, 95, 239);
+}
+
+.task-panel-section label {
+  font-size: 15px;
+}
+
+.task-panel-section .date,
+.time {
+  cursor: pointer;
+}
+
+/* Floating label */
+.task-panel-section .float-label {
+  color: rgb(87, 104, 235);
+  background-color: white;
+  padding: 0 1%;
+  font-size: 10.5px;
+  position: absolute;
+  top: 4px;
+  left: 20px;
+}
+
+.input-date,
+.input-time,
+.select-priority,
+.input-hours {
+  position: relative;
+}
+
+/* Form Validation */
+.error {
+  position: relative;
+  left: 3px;
+  bottom: 8px;
+  color: rgb(242, 18, 18);
+  font-size: 10.5px;
+  margin-left: 10px;
+  display: block;
+}
+
+/* Select */
+.task-panel-section select {
+  padding: 10px 100px 10px 10px;
+  border-radius: 6.5px;
+  cursor: pointer;
+}
+
+/* Textarea */
+.task-panel-section textarea {
+  margin: 10px 10px;
+  border: 2px solid rgba(0, 0, 0, 0.168);
+  border-radius: 6.5px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
+  height: 100px;
+  width: 94%;
+  outline-color: rgb(93, 95, 239);
+  font-size: 14px;
+  resize: vertical;
+}
+
+.task-panel-section textarea::placeholder {
+  padding: 1.5rem 0;
+  font-size: 14px;
+}
+
+/* Checkbox */
+.task-panel-section .task-type {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.task-panel-section .checkbox-label,
+.status-label {
+  position: relative;
+  left: 2.5%;
+}
+
+.task-panel-section .check {
+  width: 19px;
+  height: 19px;
+  position: relative;
+  top: 3px;
+  left: 1px;
+  cursor: pointer;
+  accent-color: rgb(93, 95, 239);
+}
+
+.task-panel-section .check-label {
+  position: relative;
+  bottom: 1px;
+  right: 5px;
+  cursor: pointer;
+}
+
+/* Radio */
+.task-panel-section .radio {
+  width: 19px;
+  height: 19px;
+  position: relative;
+  top: 3px;
+  left: 1px;
+  cursor: pointer;
+  accent-color: rgb(93, 95, 239);
+}
+
+.task-panel-section .radio-label {
+  position: relative;
+  bottom: 1px;
+  cursor: pointer;
+  left: -5px;
+}
+
+/* Buttons */
+.task-panel-section .buttons {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 15px;
+  margin: 5px 5px 10px 5px;
+}
+
+.task-panel-section button {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  padding: 16px 24px;
+}
+
+.create-button {
+  background-color: rgb(84, 98, 232);
+  color: white;
+}
+
+.create-button:hover {
+  background-color: #4252cc;
+  box-shadow: 0 4px 12px rgba(84, 104, 255, 0.4);
+}
+
+.reset-button {
+  background-color: rgb(242, 243, 245);
+  color: black;
+}
+
+.reset-button:hover {
+  background-color: #ffe3e3;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
+}
+
+/* ---- Responsive ---- */
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .task-panel-section {
+    margin-left: 40px;
+    width: 90%;
+    left: 0;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1023px) {
+  .task-panel-section {
+    width: 100%;
+    margin: 0 auto;
+    left: 0;
+    padding: 20px 35px 20px 20px;
+  }
+
+  .task-panel-section input,
+  .task-panel-section select {
+    width: 100%;
+    padding: 13px 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 15px;
+  }
+
+  .task-panel-section .float-label {
+    font-size: 14px;
+    top: 8px;
+  }
+
+  .task-panel-section textarea {
+    width: 100%;
+    font-size: 16px;
+    height: 100px;
+    margin-top: 20px;
+    border-radius: 8px;
+  }
+
+  .task-panel-section textarea::placeholder {
+    padding: 1.7rem 0;
+    font-size: 16px;
+  }
+
+  .task-panel-section .checkbox-label {
+    font-size: 16px;
+    left: 12px;
+  }
+
+  .task-panel-section .check {
+    margin-left: 15px;
+  }
+
+  .task-panel-section .check-label {
+    font-size: 16px;
+    margin-left: 65px;
+    position: relative;
+    left: -65px;
+  }
+
+  .check-radio-br {
+    display: none;
+  }
+
+  .task-panel-section .status-label {
+    font-size: 16px;
+    left: 12px;
+  }
+
+  .task-panel-section .radio {
+    margin-left: 15px;
+  }
+
+  .task-panel-section .radio-label {
+    font-size: 16px;
+    margin-left: 65px;
+    left: -65px;
+  }
+
+  .task-panel-section .buttons {
+    display: flex;
+    border-radius: 10px;
+    justify-content: center;
+  }
+
+  .task-panel-section .create-button {
+    font-size: 16px;
+    flex-basis: 30%;
+    white-space: nowrap;
+  }
+
+  .task-panel-section .reset-button {
+    padding: 10px;
+    font-size: 16px;
+    flex-basis: 20%;
+    margin: 0 0 0 15px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 752px) {
+  .check-radio-br {
+    display: block;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 600px) {
+  .task-panel-section {
+    width: 100%;
+    margin: 30px auto;
+    left: 0;
+    padding: 15px;
+    border-radius: 16px;
+  }
+
+  .task-panel-title {
+    margin: 10px 10px 10px -5px;
+  }
+
+  .error {
+    left: -7px;
+  }
+
+  .task-panel-section input,
+  .task-panel-section select,
+  .task-panel-section textarea {
+    width: 100%;
+    font-size: 16px;
+    margin: 13px 0;
+    border-radius: 8px;
+    padding: 12px 10px 12px 19px;
+  }
+
+  .task-panel-section .float-label {
+    font-size: 13px;
+    top: 6px;
+  }
+
+  .task-panel-section textarea {
+    height: 110px;
+    margin-bottom: 25px;
+  }
+
+  .task-panel-section textarea::placeholder {
+    padding: 1.8rem 0;
+    font-size: 17px;
+  }
+
+  .task-panel-section .checkbox-label {
+    font-size: 17px;
+    left: 1%;
+  }
+
+  .task-panel-section .check {
+    width: 60px;
+    left: -14px;
+  }
+
+  .task-panel-section .check-label {
+    font-size: 17px;
+    left: -25px;
+  }
+
+  .task-panel-section .status-label {
+    font-size: 17px;
+    left: 1%;
+  }
+
+  .task-panel-section .radio {
+    width: 60px;
+    left: -15px;
+    height: 19px;
+    top: 3px;
+  }
+
+  .task-panel-section .radio-label {
+    font-size: 17px;
+    left: -26px;
+  }
+
+  .task-panel-section .buttons {
+    display: flex;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .task-panel-section .create-button {
+    padding: 0 40px;
+    border-radius: 10px;
+    font-size: 14px;
+    flex-basis: 62%;
+    white-space: wrap;
+  }
+
+  .task-panel-section .reset-button {
+    padding: 13px 30px;
+    margin-left: 5px;
+    font-size: 15px;
+    left: 0;
+    flex-basis: 32%;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 350px) {
+  .task-panel-section .radio {
+    width: 55px;
+  }
+  .task-panel-section .create-button {
+    flex-basis: 65%;
+  }
+  .task-panel-section .reset-button {
+    flex-basis: 10%;
+  }
+}
