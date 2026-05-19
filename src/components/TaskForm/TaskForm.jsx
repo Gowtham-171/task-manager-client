@@ -2,19 +2,7 @@ import React, { useState } from "react";
 import { validateTaskForm, formattedTodayDate } from "../../utils/validators";
 import "./TaskForm.css";
 
-const INITIAL_STATE = {
-  username: "",
-  name: "",
-  email: "",
-  date: "",
-  time: "",
-  priority: "",
-  hours: "",
-  url: "",
-  description: "",
-  taskTypes: [],
-  status: "",
-};
+const INITIAL_STATE = { username: "", name: "", email: "",date: "",time: "",priority: "",hours: "",url: "",description: "",taskTypes: [],status: ""};
 
 function TaskForm({ tasks, onTaskCreated }) {
   const [values, setValues] = useState(INITIAL_STATE);
@@ -23,24 +11,28 @@ function TaskForm({ tasks, onTaskCreated }) {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: "" }));
+
+    setValues((previous) => ({ ...previous, [name]: value }));
+
+    setErrors((previous) => ({ ...previous, [name]: "" }));
   }
 
   function handleCheckbox(e) {
     const { value, checked } = e.target;
-    setValues((prev) => {
-      const types = checked
-        ? [...prev.taskTypes, value]
-        : prev.taskTypes.filter((t) => t !== value);
-      return { ...prev, taskTypes: types };
+
+    setValues((previous) => {
+      const types = checked ? [...previous.taskTypes, value] : previous.taskTypes.filter((task) => task !== value);
+
+      return { ...previous, taskTypes: types };
     });
-    setErrors((prev) => ({ ...prev, taskTypes: "" }));
+
+    setErrors((previous) => ({ ...previous, taskTypes: "" }));
   }
 
   function handleRadio(e) {
-    setValues((prev) => ({ ...prev, status: e.target.value }));
-    setErrors((prev) => ({ ...prev, status: "" }));
+    setValues((previous) => ({ ...previous, status: e.target.value }));
+
+    setErrors((previous) => ({ ...previous, status: "" }));
   }
 
   async function handleSubmit(e) {
@@ -57,9 +49,11 @@ function TaskForm({ tasks, onTaskCreated }) {
       await onTaskCreated(values);
       setValues(INITIAL_STATE);
       setErrors({});
-    } catch (err) {
+    } 
+    catch (err) {
       console.error(err);
-    } finally {
+    } 
+    finally {
       setSubmitting(false);
     }
   }
@@ -328,10 +322,10 @@ function TaskForm({ tasks, onTaskCreated }) {
 
         <div className="buttons">
           <button type="submit" id="create-button" className="create-button" disabled={submitting}>
-            <span>✓</span> {submitting ? "Creating..." : "Create Task"}
+            <span>&#10003;</span> {submitting ? "Creating..." : "Create Task"}
           </button>
           <button type="reset" id="reset-button" className="reset-button">
-            <span>✗</span> Reset
+            <span>&#10006;</span> <br></br> Reset
           </button>
         </div>
       </form>

@@ -1,3 +1,6 @@
+
+/* TASK PANEL SECTION */
+
 .task-panel-section {
   position: relative;
   margin: 10px 5px 10px 90px;
@@ -36,6 +39,8 @@
   cursor: pointer;
 }
 
+/* Floating-label */
+
 .task-panel-section .float-label {
   color: rgb(87, 104, 235);
   background-color: white;
@@ -63,11 +68,15 @@
   display: block;
 }
 
+/* Selection */
+
 .task-panel-section select {
   padding: 10px 100px 10px 10px;
   border-radius: 6.5px;
   cursor: pointer;
 }
+
+/* Textarea */
 
 .task-panel-section textarea {
   margin: 10px 10px;
@@ -86,6 +95,8 @@
   padding: 1.5rem 0;
   font-size: 14px;
 }
+
+/* Checkbox */
 
 .task-panel-section .task-type {
   margin-top: 10px;
@@ -115,6 +126,8 @@
   cursor: pointer;
 }
 
+/* Radio-button */
+
 .task-panel-section .radio {
   width: 19px;
   height: 19px;
@@ -131,6 +144,8 @@
   cursor: pointer;
   left: -5px;
 }
+
+/* Button */
 
 .task-panel-section .buttons {
   display: grid;
@@ -176,6 +191,8 @@
   box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
 }
 
+/* Laptop View */
+
 @media (min-width: 1024px) and (max-width: 1280px) {
   .task-panel-section {
     margin-left: 40px;
@@ -183,6 +200,8 @@
     left: 0;
   }
 }
+
+/* Tablet View */
 
 @media (min-width: 601px) and (max-width: 1023px) {
   .task-panel-section {
@@ -268,6 +287,8 @@
     margin: 0 0 0 15px;
   }
 }
+
+/* Mobile View */
 
 @media (max-width: 600px) {
   .task-panel-section {

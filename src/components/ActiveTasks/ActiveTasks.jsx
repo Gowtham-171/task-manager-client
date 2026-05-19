@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import TaskCard from "./TaskCard";
+import addTaskImage from "../../assets/images/add-task-image.png";
+import noTaskImage from "../../assets/images/no-task-image.png"
 import "./ActiveTasks.css";
 
-const FILTERS = ["all", "high", "medium", "low"];
+const filters = ["all", "high", "medium", "low"];
 
 function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }) {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -10,10 +12,10 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
   const filtered =
     activeFilter === "all"
       ? tasks
-      : tasks.filter((t) => t.priority.toLowerCase() === activeFilter);
+      : tasks.filter((task) => task.priority.toLowerCase() === activeFilter);
 
   function countByPriority(p) {
-    return tasks.filter((t) => t.priority.toLowerCase() === p).length;
+    return tasks.filter((task) => task.priority.toLowerCase() === p).length;
   }
 
   const showGlobalEmpty = tasks.length === 0;
@@ -27,7 +29,7 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
         </div>
 
         <div className="filter-buttons">
-          {FILTERS.map((f) => (
+          {filters.map((f) => (
             <a
               key={f}
               className={`filter-button${activeFilter === f ? " active" : ""}`}
@@ -51,7 +53,7 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
       {!loading && showGlobalEmpty && (
         <div className="empty-task">
           <div className="task-image">
-            <img src="/images/Add-task-image.png" alt="No tasks" />
+            <img src={addTaskImage} alt="No tasks" />
           </div>
           <h3>No tasks yet</h3>
           <p>Start adding tasks and manage your work efficiently</p>
@@ -66,9 +68,7 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
                 <img src="/images/no-task-image.png" alt="No tasks" />
               </div>
               <h3>
-                {activeFilter === "all"
-                  ? "No Tasks"
-                  : `No ${activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)} Priority Tasks`}
+                {activeFilter === "all" ? "No Tasks" : `No ${activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)} Priority Tasks`}
               </h3>
               <p>Try adding a task or switch priority</p>
             </div>

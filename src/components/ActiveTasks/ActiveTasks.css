@@ -1,3 +1,6 @@
+
+/* ACTIVE TASKS SECTION */
+
 .active-task-section {
   background-color: white;
   margin: 10px 100px 19px 20px;
@@ -55,6 +58,8 @@
   border: 1px solid rgb(93, 95, 239);
 }
 
+/* EMPTY TASK CONTAINER */
+
 .empty-task {
   display: flex;
   flex-direction: column;
@@ -109,6 +114,8 @@
   overflow-y: auto;
 }
 
+/* TASK-CARD */
+
 .task-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -116,6 +123,8 @@
   padding: 1.3rem 0.9rem;
   padding-top: 1.4%;
 }
+
+/* Laptop View */
 
 @media (min-width: 1024px) and (max-width: 1280px) {
   .active-task-section {
@@ -132,6 +141,8 @@
     gap: 1.5rem;
   }
 }
+
+/* Tablet View */
 
 @media (min-width: 601px) and (max-width: 1023px) {
   .active-task-section {
@@ -166,6 +177,8 @@
     font-size: 19px;
   }
 }
+
+/* Mobile View */
 
 @media (max-width: 600px) {
   .active-task-section {
