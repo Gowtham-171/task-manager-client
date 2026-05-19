@@ -5,7 +5,7 @@
   padding: 20px;
   width: 75%;
   border-radius: 13px;
-  box-shadow: 0px 0px 10px rgb(0 0 0 / 15%);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
   margin-bottom: 20px;
   left: 15px;
 }
@@ -32,11 +32,10 @@
 }
 
 .task-panel-section .date,
-.time {
+.task-panel-section .time {
   cursor: pointer;
 }
 
-/* Floating label */
 .task-panel-section .float-label {
   color: rgb(87, 104, 235);
   background-color: white;
@@ -54,7 +53,6 @@
   position: relative;
 }
 
-/* Form Validation */
 .error {
   position: relative;
   left: 3px;
@@ -65,14 +63,12 @@
   display: block;
 }
 
-/* Select */
 .task-panel-section select {
   padding: 10px 100px 10px 10px;
   border-radius: 6.5px;
   cursor: pointer;
 }
 
-/* Textarea */
 .task-panel-section textarea {
   margin: 10px 10px;
   border: 2px solid rgba(0, 0, 0, 0.168);
@@ -91,14 +87,13 @@
   font-size: 14px;
 }
 
-/* Checkbox */
 .task-panel-section .task-type {
   margin-top: 10px;
   margin-bottom: 20px;
 }
 
 .task-panel-section .checkbox-label,
-.status-label {
+.task-panel-section .status-label {
   position: relative;
   left: 2.5%;
 }
@@ -120,7 +115,6 @@
   cursor: pointer;
 }
 
-/* Radio */
 .task-panel-section .radio {
   width: 19px;
   height: 19px;
@@ -138,7 +132,6 @@
   left: -5px;
 }
 
-/* Buttons */
 .task-panel-section .buttons {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -168,6 +161,11 @@
   box-shadow: 0 4px 12px rgba(84, 104, 255, 0.4);
 }
 
+.create-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .reset-button {
   background-color: rgb(242, 243, 245);
   color: black;
@@ -177,8 +175,6 @@
   background-color: #ffe3e3;
   box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
 }
-
-/* ---- Responsive ---- */
 
 @media (min-width: 1024px) and (max-width: 1280px) {
   .task-panel-section {
@@ -216,11 +212,6 @@
     height: 100px;
     margin-top: 20px;
     border-radius: 8px;
-  }
-
-  .task-panel-section textarea::placeholder {
-    padding: 1.7rem 0;
-    font-size: 16px;
   }
 
   .task-panel-section .checkbox-label {
@@ -278,13 +269,7 @@
   }
 }
 
-@media (min-width: 601px) and (max-width: 752px) {
-  .check-radio-br {
-    display: block;
-  }
-}
-
-@media (min-width: 0px) and (max-width: 600px) {
+@media (max-width: 600px) {
   .task-panel-section {
     width: 100%;
     margin: 30px auto;
@@ -319,11 +304,6 @@
   .task-panel-section textarea {
     height: 110px;
     margin-bottom: 25px;
-  }
-
-  .task-panel-section textarea::placeholder {
-    padding: 1.8rem 0;
-    font-size: 17px;
   }
 
   .task-panel-section .checkbox-label {
@@ -378,17 +358,5 @@
     font-size: 15px;
     left: 0;
     flex-basis: 32%;
-  }
-}
-
-@media (min-width: 0px) and (max-width: 350px) {
-  .task-panel-section .radio {
-    width: 55px;
-  }
-  .task-panel-section .create-button {
-    flex-basis: 65%;
-  }
-  .task-panel-section .reset-button {
-    flex-basis: 10%;
   }
 }

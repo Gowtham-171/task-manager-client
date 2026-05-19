@@ -1,19 +1,31 @@
-import { useState } from 'react'
-import Header from './components/Header/Header.jsx'
-import Footer from './components/Footer/Footer.jsx'
-import Dashboard from './components/Dashboard/Dashboard.jsx'
-import './App.css'
+import React, { useState, useCallback } from "react";
+import Header from "./components/Header/Header";
+import Dashboard from "./components/Dashboard/Dashboard";
+import Toast from "./components/Toast/Toast";
+import Footer from "./components/Footer/Footer";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [toast, setToast] = useState({ visible: false, message: "" });
+
+  const showToast = useCallback((message) => {
+    setToast({ visible: true, message });
+  }, []);
+
+  const hideToast = useCallback(() => {
+    setToast((prev) => ({ ...prev, visible: false }));
+  }, []);
 
   return (
-    <div className="app">
-      <Header/>
-      <Dashboard/>
-      <Footer/>
-    </div>
-  )
+    <>
+      <Header />
+      <Toast message={toast.message} visible={toast.visible} onClose={hideToast} />
+      <main>
+        <Dashboard onToast={showToast} />
+      </main>
+      <Footer />
+    </>
+  );
 }
 
-export default App
+export default App;

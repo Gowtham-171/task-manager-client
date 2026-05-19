@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import './Header.css';
+import React, { useState } from "react";
+import "./Header.css";
 
-function Header({ currentPage, navigate }) {
+function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleNav = (page) => {
-    navigate(page);
+  function toggleMenu() {
+    setMenuOpen((prev) => !prev);
+  }
+
+  function closeMenu() {
     setMenuOpen(false);
-  };
+  }
 
   return (
     <header>
@@ -16,38 +19,29 @@ function Header({ currentPage, navigate }) {
         <h2 className="title">TaskManager</h2>
       </div>
 
-      <div className={`hamburger ${menuOpen ? 'active' : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
+      <div
+        className={`hamburger${menuOpen ? " active" : ""}`}
+        onClick={toggleMenu}
+      >
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>
       </div>
 
-      <nav className={`nav-container ${menuOpen ? 'active' : ''}`}>
+      <nav className={`nav-container${menuOpen ? " active" : ""}`}>
         <ul className="nav-links">
           <li>
-            <a
-              href="#dashboard"
-              className={currentPage === 'dashboard' ? 'active-nav' : ''}
-              onClick={() => handleNav('dashboard')}
-            >
+            <a href="#" className="active-nav" onClick={closeMenu}>
               Dashboard
             </a>
           </li>
           <li>
-            <a
-              href="#tasks"
-              className={currentPage === 'tasks' ? 'active-nav' : ''}
-              onClick={() => handleNav('tasks')}
-            >
+            <a href="#" onClick={closeMenu}>
               Tasks
             </a>
           </li>
           <li>
-            <a
-              href="#profile"
-              className={currentPage === 'profile' ? 'active-nav' : ''}
-              onClick={() => handleNav('profile')}
-            >
+            <a href="#" onClick={closeMenu}>
               Profile
             </a>
           </li>

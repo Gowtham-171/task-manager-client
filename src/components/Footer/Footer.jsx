@@ -1,8 +1,8 @@
-import React from 'react';
-import './Footer.css';
+import React from "react";
+import "./Footer.css";
 
 function Footer() {
-  const currentYear = new Date().getFullYear();
+  const year = new Date().getFullYear();
 
   return (
     <footer className="footer">
@@ -11,6 +11,7 @@ function Footer() {
           <h4>TaskManager</h4>
           <p className="footer-p">Organize your work and life, finally.</p>
         </div>
+
         <div className="footer-content">
           <h4>Features</h4>
           <ul>
@@ -20,6 +21,7 @@ function Footer() {
             <li><p>Integrations</p></li>
           </ul>
         </div>
+
         <div className="footer-content">
           <h4>Resources</h4>
           <ul>
@@ -29,6 +31,7 @@ function Footer() {
             <li><p>Support</p></li>
           </ul>
         </div>
+
         <div className="footer-content">
           <h4>Company</h4>
           <ul>
@@ -42,7 +45,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <div className="footer-copyrights">
-          <p>© {currentYear} TaskManager. All rights reserved. Built with &#10084; for productivity.</p>
+          <p>© {year} TaskManager. All rights reserved. Built with ❤️ for productivity.</p>
         </div>
       </div>
     </footer>
