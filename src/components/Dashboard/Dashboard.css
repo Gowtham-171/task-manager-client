@@ -1,3 +1,6 @@
+
+/*---------MAIN-SECTION----------*/
+
 .main-section {
   background-color: rgb(247, 249, 250);
   display: grid;
@@ -16,13 +19,15 @@
   align-items: center;
 }
 
-.line {
+.main-title .line {
   display: inline-block;
   border: 3px solid rgb(93, 95, 239);
   margin-right: 0.8rem;
   border-radius: 5px;
-  height: 1.5rem;
+  height: 2.5rem;
 }
+
+/* Laptop View */
 
 @media (min-width: 1024px) and (max-width: 1280px) {
   .main-section {
@@ -34,6 +39,8 @@
     margin: 50px 40px 20px 40px;
   }
 }
+
+/* Tablet View */
 
 @media (min-width: 601px) and (max-width: 1023px) {
   .main-section {
@@ -52,7 +59,13 @@
   .main-title {
     font-size: 28px;
   }
+
+  .main-title .line {
+    height: 2.3rem;
+  }
 }
+
+/* Mobile View */
 
 @media (max-width: 600px) {
   .main-section {
@@ -70,5 +83,9 @@
     justify-content: flex-start;
     margin: 50px 15px 5px 15px;
     gap: 20px;
+  }
+
+  .main-title .line {
+    height: 1.8rem;
   }
 }

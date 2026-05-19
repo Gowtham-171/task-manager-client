@@ -5,7 +5,7 @@ function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="footer">
+    <footer>
       <div className="footer-container">
         <div className="footer-content">
           <h4>TaskManager</h4>
@@ -45,7 +45,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <div className="footer-copyrights">
-          <p>© {year} TaskManager. All rights reserved. Built with ❤️ for productivity.</p>
+          <p>© {year} TaskManager. All rights reserved. Built with / for productivity.</p>
         </div>
       </div>
     </footer>

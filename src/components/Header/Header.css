@@ -1,10 +1,13 @@
+
+/*----------HEADER-----------*/
+
 header {
   padding: 20px;
   width: 100%;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 2px 10px rgb(0, 0, 0, 0.15);
   background-color: white;
   position: sticky;
-  top: 0;
+  top: 0%;
   z-index: 100;
   display: flex;
   justify-content: space-between;
@@ -18,12 +21,14 @@ header {
   gap: 10px;
 }
 
-.header-container .logo {
+header .logo {
   background-color: rgb(93, 95, 239);
   color: white;
   border-radius: 8px;
-  padding: 3px 8px;
+  padding: 3px 0px;
 }
+
+/*----------NAV-BAR-----------*/
 
 .nav-container {
   display: flex;
@@ -39,7 +44,7 @@ header {
 .nav-links a {
   text-decoration: none;
   padding: 10px;
-  margin: 0 10px;
+  margin: 0px 10px;
   color: rgba(0, 0, 0, 0.6);
   outline: none;
 }
@@ -51,8 +56,12 @@ header {
   transition: background-color 0.3s;
 }
 
+/* Hamburger Icon */
+
 .hamburger {
   display: none;
+  position: relative;
+  float: right;
   padding: 3px 10px;
   background-color: rgb(242, 243, 245);
   border-radius: 8px;
@@ -68,7 +77,41 @@ header {
   background-color: black;
 }
 
-@media (max-width: 600px) {
+/* Laptop View */
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .header-container {
+    margin-left: 20px;
+  }
+
+  .nav-container {
+    margin-right: 10px;
+  }
+}
+
+/* Tablet View */
+
+@media (min-width: 601px) and (max-width: 1023px) {
+  header {
+    padding: 16px 24px;
+  }
+
+  header .header-container {
+    margin-left: 26px;
+  }
+
+  nav .nav-links {
+    gap: 10px;
+  }
+
+  .nav-container {
+    margin-right: 20px;
+  }
+}
+
+/* Mobile View */
+
+@media (min-width: 0px) and (max-width: 600px) {
   header {
     padding: 14px 18px;
   }
@@ -77,7 +120,7 @@ header {
     margin-left: -3px;
   }
 
-  .header-container .title {
+  header .title {
     font-size: 25px;
   }
 
@@ -89,7 +132,6 @@ header {
     left: -100%;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.4s;
-    z-index: 99;
   }
 
   .nav-container.active {
@@ -102,6 +144,7 @@ header {
     height: 100vh;
     text-align: center;
     padding: 30px 0;
+    margin-left: 35%;
   }
 
   .nav-links li {
@@ -128,33 +171,5 @@ header {
 
   .hamburger.active .bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
-  }
-}
-
-@media (min-width: 601px) and (max-width: 1023px) {
-  header {
-    padding: 16px 24px;
-  }
-
-  .header-container {
-    margin-left: 26px;
-  }
-
-  .nav-links {
-    gap: 10px;
-  }
-
-  .nav-container {
-    margin-right: 20px;
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1280px) {
-  .header-container {
-    margin-left: 20px;
-  }
-
-  .nav-container {
-    margin-right: 10px;
   }
 }

@@ -5,7 +5,7 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   function toggleMenu() {
-    setMenuOpen((prev) => !prev);
+    setMenuOpen((previous) => !previous);
   }
 
   function closeMenu() {
@@ -19,10 +19,7 @@ function Header() {
         <h2 className="title">TaskManager</h2>
       </div>
 
-      <div
-        className={`hamburger${menuOpen ? " active" : ""}`}
-        onClick={toggleMenu}
-      >
+      <div className={`hamburger${menuOpen ? " active" : ""}`} onClick={toggleMenu}>
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>
@@ -31,19 +28,13 @@ function Header() {
       <nav className={`nav-container${menuOpen ? " active" : ""}`}>
         <ul className="nav-links">
           <li>
-            <a href="#" className="active-nav" onClick={closeMenu}>
-              Dashboard
-            </a>
+            <a href="#" className="active-nav" onClick={closeMenu}>Dashboard</a>
           </li>
           <li>
-            <a href="#" onClick={closeMenu}>
-              Tasks
-            </a>
+            <a href="#" onClick={closeMenu}>Tasks</a>
           </li>
           <li>
-            <a href="#" onClick={closeMenu}>
-              Profile
-            </a>
+            <a href="#" onClick={closeMenu}>Profile</a>
           </li>
         </ul>
       </nav>

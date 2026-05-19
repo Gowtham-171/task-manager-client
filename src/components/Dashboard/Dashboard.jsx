@@ -18,11 +18,15 @@ function Dashboard({ onToast }) {
   const fetchTasks = useCallback(async () => {
     try {
       setLoading(true);
+
       const data = await getAllTasks();
+
       setTasks(data);
-    } catch (err) {
+    } 
+    catch (err) {
       console.error("Failed to fetch tasks:", err);
-    } finally {
+    } 
+    finally {
       setLoading(false);
     }
   }, []);
@@ -33,21 +37,29 @@ function Dashboard({ onToast }) {
 
   async function handleCreateTask(formValues) {
     const newTask = await createTask(formValues);
-    setTasks((prev) => [...prev, newTask]);
+
+    setTasks((previous) => [...previous, newTask]);
+
     onToast("Task Created Successfully");
   }
 
   async function handleUpdateTask(id, formValues) {
     const updated = await updateTask(id, formValues);
-    setTasks((prev) => prev.map((t) => (t.id === id ? updated : t)));
+
+    setTasks((previous) => previous.map((task) => (task.id === id ? updated : task)));
+
     onToast("Task Updated Successfully");
   }
 
   async function handleDeleteConfirm() {
     if (!deleteTarget) return;
+
     await deleteTask(deleteTarget.id);
-    setTasks((prev) => prev.filter((t) => t.id !== deleteTarget.id));
+
+    setTasks((previous) => previous.filter((task) => task.id !== deleteTarget.id));
+
     setDeleteTarget(null);
+
     onToast("Task Deleted Successfully");
   }
 
@@ -71,26 +83,11 @@ function Dashboard({ onToast }) {
         />
       </section>
 
-      {selectedTask && (
-        <FullTaskPopup task={selectedTask} onClose={() => setSelectedTask(null)} />
-      )}
+      {selectedTask && (<FullTaskPopup task={selectedTask} onClose={() => setSelectedTask(null)} />)}
 
-      {editTask && (
-        <EditPopup
-          task={editTask}
-          tasks={tasks}
-          onClose={() => setEditTask(null)}
-          onUpdate={handleUpdateTask}
-        />
-      )}
+      {editTask && (<EditPopup task={editTask} tasks={tasks} onClose={() => setEditTask(null)} onUpdate={handleUpdateTask} />)}
 
-      {deleteTarget && (
-        <DeletePopup
-          task={deleteTarget}
-          onCancel={() => setDeleteTarget(null)}
-          onConfirm={handleDeleteConfirm}
-        />
-      )}
+      {deleteTarget && (<DeletePopup task={deleteTarget} onCancel={() => setDeleteTarget(null)} onConfirm={handleDeleteConfirm} />)}
     </>
   );
 }
