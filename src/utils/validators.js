@@ -9,25 +9,28 @@ export function validateTaskForm(values, existingTasks, editTaskId = null) {
   // Assignee Name
   if (!values.username || values.username.trim() === "") {
     errors.username = "Assignee Name is required";
-  } else if (values.username.trim().length < 3) {
+  }
+  else if (values.username.trim().length < 3) {
     errors.username = "Assignee Name must be at least 3 characters";
-  } else if (!userNameValidator.test(values.username.trim())) {
+  }
+  else if (!userNameValidator.test(values.username.trim())) {
     errors.username = "Assignee name cannot include numbers or special characters";
-  } else if (
-    values.username.trim().startsWith(".") ||
-    values.username.trim().endsWith(".")
-  ) {
+  }
+  else if (values.username.trim().startsWith(".") || values.username.trim().endsWith(".")) {
     errors.username = "Assignee Name cannot start or end with a dot";
-  } else if (!userPattern.test(values.username.trim())) {
+  }
+  else if (!userPattern.test(values.username.trim())) {
     errors.username = "Invalid Assignee Name format";
   }
 
   // Task Name
   if (!values.name || values.name.trim() === "") {
     errors.name = "Task Name is required";
-  } else if (!userNameValidator.test(values.name.trim())) {
+  }
+  else if (!userNameValidator.test(values.name.trim())) {
     errors.name = "Task name cannot include numbers or special characters";
-  } else {
+  }
+  else {
     const duplicate = existingTasks.some(
       (t) =>
         t.name.toLowerCase() === values.name.trim().toLowerCase() &&
@@ -39,9 +42,11 @@ export function validateTaskForm(values, existingTasks, editTaskId = null) {
   // Email
   if (!values.email || values.email.trim() === "") {
     errors.email = "Assignee Email is required";
-  } else if (!values.email.includes("@")) {
+  }
+  else if (!values.email.includes("@")) {
     errors.email = "Email must include '@' symbol";
-  } else if (!emailPattern.test(values.email.trim())) {
+  }
+  else if (!emailPattern.test(values.email.trim())) {
     errors.email = "Please enter a valid email (e.g., name@email.com)";
   }
 
@@ -53,7 +58,8 @@ export function validateTaskForm(values, existingTasks, editTaskId = null) {
   // Time
   if (!values.time) {
     errors.time = "Due Time is required";
-  } else if (values.date === formattedTodayDate()) {
+  }
+  else if (values.date === formattedTodayDate()) {
     if (values.time < formattedCurrentTime()) {
       errors.time = "Due Time cannot be in the past";
     }

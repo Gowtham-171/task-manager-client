@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Header from "./components/Header/Header";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Toast from "./components/Toast/Toast";
+import Toast from "./components/ToastNotification/ToastNotification";
 import Footer from "./components/Footer/Footer";
 import "./App.css";
 

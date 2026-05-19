@@ -65,7 +65,7 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
           {showPriorityEmpty ? (
             <div className="empty-task priority-empty">
               <div className="task-image">
-                <img src="/images/no-task-image.png" alt="No tasks" />
+                <img src={noTaskImage} alt="No tasks" />
               </div>
               <h3>
                 {activeFilter === "all" ? "No Tasks" : `No ${activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)} Priority Tasks`}
