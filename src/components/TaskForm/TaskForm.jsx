@@ -1,46 +1,85 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { validateTaskForm, formattedTodayDate } from "../../utils/validators";
 import "./TaskForm.css";
 
-const INITIAL_STATE = { username: "", name: "", email: "",date: "",time: "",priority: "",hours: "",url: "",description: "",taskTypes: [],status: ""};
+const INITIAL_STATE = {
+  username: "",
+  name: "",
+  email: "",
+  date: "",
+  time: "",
+  priority: "",
+  hours: "",
+  url: "",
+  description: "",
+  taskTypes: [],
+  status: "",
+};
+
+
+const FIELD_ORDER = [
+  "username",
+  "name",
+  "email",
+  "date",
+  "time",
+  "priority",
+  "hours",
+  "url",
+  "description",
+  "taskTypes",
+  "status",
+];
 
 function TaskForm({ tasks, onTaskCreated }) {
   const [values, setValues] = useState(INITIAL_STATE);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
 
+
+  const fieldRefs = useRef(
+    Object.fromEntries(FIELD_ORDER.map((key) => [key, React.createRef()]))
+  );
+
+  function scrollToField(fieldKey) {
+    const wrapperEl = fieldRefs.current[fieldKey]?.current;
+    if (wrapperEl) {
+      wrapperEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      const focusable = wrapperEl.querySelector("input, select, textarea");
+      if (focusable) focusable.focus({ preventScroll: true });
+    }
+  }
+
   function handleChange(e) {
     const { name, value } = e.target;
-
-    setValues((previous) => ({ ...previous, [name]: value }));
-
-    setErrors((previous) => ({ ...previous, [name]: "" }));
+    setValues((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   }
 
   function handleCheckbox(e) {
     const { value, checked } = e.target;
-
-    setValues((previous) => {
-      const types = checked ? [...previous.taskTypes, value] : previous.taskTypes.filter((task) => task !== value);
-
-      return { ...previous, taskTypes: types };
+    setValues((prev) => {
+      const types = checked
+        ? [...prev.taskTypes, value]
+        : prev.taskTypes.filter((t) => t !== value);
+      return { ...prev, taskTypes: types };
     });
-
-    setErrors((previous) => ({ ...previous, taskTypes: "" }));
+    setErrors((prev) => ({ ...prev, taskTypes: "" }));
   }
 
   function handleRadio(e) {
-    setValues((previous) => ({ ...previous, status: e.target.value }));
-
-    setErrors((previous) => ({ ...previous, status: "" }));
+    setValues((prev) => ({ ...prev, status: e.target.value }));
+    setErrors((prev) => ({ ...prev, status: "" }));
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const validationErrors = validateTaskForm(values, tasks);
+    const validationErrors = validateTaskForm(values, tasks || []);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      const firstErrorKey = FIELD_ORDER.find((key) => validationErrors[key]);
+      if (firstErrorKey) scrollToField(firstErrorKey);
       return;
     }
 
@@ -49,11 +88,50 @@ function TaskForm({ tasks, onTaskCreated }) {
       await onTaskCreated(values);
       setValues(INITIAL_STATE);
       setErrors({});
-    } 
-    catch (err) {
-      console.error(err);
-    } 
-    finally {
+    } catch (err) {
+      // Map backend error messages → correct form field
+      const message = err.message || "";
+      let backendErrors = {};
+
+      if (message.toLowerCase().includes("task name")) {
+        backendErrors = { name: "Task name already exists" };
+      } else if (
+        message.toLowerCase().includes("assignee name") ||
+        message.toLowerCase().includes("assigneename")
+      ) {
+        backendErrors = { username: message };
+      } else if (message.toLowerCase().includes("email")) {
+        backendErrors = { email: message };
+      } else if (
+        message.toLowerCase().includes("due date") ||
+        message.toLowerCase().includes("duedate")
+      ) {
+        backendErrors = { date: message };
+      } else if (
+        message.toLowerCase().includes("due time") ||
+        message.toLowerCase().includes("duetime")
+      ) {
+        backendErrors = { time: message };
+      } else if (message.toLowerCase().includes("priority")) {
+        backendErrors = { priority: message };
+      } else if (message.toLowerCase().includes("hour")) {
+        backendErrors = { hours: message };
+      } else if (message.toLowerCase().includes("url")) {
+        backendErrors = { url: message };
+      } else if (message.toLowerCase().includes("description")) {
+        backendErrors = { description: message };
+      } else if (message.toLowerCase().includes("task type")) {
+        backendErrors = { taskTypes: message };
+      } else if (message.toLowerCase().includes("status")) {
+        backendErrors = { status: message };
+      } else {
+        backendErrors = { name: message };
+      }
+
+      setErrors(backendErrors);
+      const firstErrorKey = FIELD_ORDER.find((key) => backendErrors[key]);
+      if (firstErrorKey) scrollToField(firstErrorKey);
+    } finally {
       setSubmitting(false);
     }
   }
@@ -65,6 +143,8 @@ function TaskForm({ tasks, onTaskCreated }) {
 
   const today = formattedTodayDate();
 
+  const firstErrorKey = FIELD_ORDER.find((key) => errors[key]);
+
   return (
     <section className="task-panel-section">
       <div className="task-panel-title">
@@ -72,7 +152,9 @@ function TaskForm({ tasks, onTaskCreated }) {
       </div>
 
       <form id="form" onSubmit={handleSubmit} onReset={handleReset}>
-        <div className="input-username">
+
+        {/* ── Assignee Name ── */}
+        <div className="input-username" ref={fieldRefs.current.username}>
           <input
             type="text"
             name="username"
@@ -80,9 +162,9 @@ function TaskForm({ tasks, onTaskCreated }) {
             placeholder="Assignee Name *"
             value={values.username}
             onChange={handleChange}
-            style={errors.username ? { borderColor: "red" } : {}}
+            style={firstErrorKey === "username" ? { borderColor: "red" } : {}}
           />
-          {errors.username && (
+          {firstErrorKey === "username" && errors.username && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.username}
@@ -90,7 +172,8 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        <div className="input-name">
+        {/* ── Task Name ── */}
+        <div className="input-name" ref={fieldRefs.current.name}>
           <input
             type="text"
             name="name"
@@ -98,9 +181,9 @@ function TaskForm({ tasks, onTaskCreated }) {
             placeholder="Task Name *"
             value={values.name}
             onChange={handleChange}
-            style={errors.name ? { borderColor: "red" } : {}}
+            style={firstErrorKey === "name" ? { borderColor: "red" } : {}}
           />
-          {errors.name && (
+          {firstErrorKey === "name" && errors.name && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.name}
@@ -108,7 +191,8 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        <div className="input-email">
+        {/* ── Assignee Email ── */}
+        <div className="input-email" ref={fieldRefs.current.email}>
           <input
             type="text"
             name="email"
@@ -116,9 +200,9 @@ function TaskForm({ tasks, onTaskCreated }) {
             placeholder="Assignee Email *"
             value={values.email}
             onChange={handleChange}
-            style={errors.email ? { borderColor: "red" } : {}}
+            style={firstErrorKey === "email" ? { borderColor: "red" } : {}}
           />
-          {errors.email && (
+          {firstErrorKey === "email" && errors.email && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.email}
@@ -126,7 +210,8 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        <div className="input-date">
+        {/* ── Due Date ── */}
+        <div className="input-date" ref={fieldRefs.current.date}>
           <label className="float-label" htmlFor="date-input">Due Date *</label>
           <input
             type="date"
@@ -136,9 +221,9 @@ function TaskForm({ tasks, onTaskCreated }) {
             min={today}
             value={values.date}
             onChange={handleChange}
-            style={errors.date ? { borderColor: "red" } : {}}
+            style={firstErrorKey === "date" ? { borderColor: "red" } : {}}
           />
-          {errors.date && (
+          {firstErrorKey === "date" && errors.date && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.date}
@@ -146,7 +231,8 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        <div className="input-time">
+        {/* ── Due Time ── */}
+        <div className="input-time" ref={fieldRefs.current.time}>
           <label className="float-label" htmlFor="time-input">Due Time *</label>
           <input
             type="time"
@@ -155,9 +241,9 @@ function TaskForm({ tasks, onTaskCreated }) {
             className="time"
             value={values.time}
             onChange={handleChange}
-            style={errors.time ? { borderColor: "red" } : {}}
+            style={firstErrorKey === "time" ? { borderColor: "red" } : {}}
           />
-          {errors.time && (
+          {firstErrorKey === "time" && errors.time && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.time}
@@ -165,7 +251,8 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        <div className="select-priority">
+        {/* ── Priority Level ── */}
+        <div className="select-priority" ref={fieldRefs.current.priority}>
           <label className="float-label" htmlFor="priority-select">Priority Level *</label>
           <select
             name="priority"
@@ -173,14 +260,14 @@ function TaskForm({ tasks, onTaskCreated }) {
             className="priority-selection"
             value={values.priority}
             onChange={handleChange}
-            style={errors.priority ? { borderColor: "red" } : {}}
+            style={firstErrorKey === "priority" ? { borderColor: "red" } : {}}
           >
             <option value="" disabled>-- Select priority --</option>
             <option value="Low">Low Priority</option>
             <option value="Medium">Medium Priority</option>
             <option value="High">High Priority</option>
           </select>
-          {errors.priority && (
+          {firstErrorKey === "priority" && errors.priority && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.priority}
@@ -188,7 +275,8 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        <div className="input-hours">
+        {/* ── Estimated Hours ── */}
+        <div className="input-hours" ref={fieldRefs.current.hours}>
           <label className="float-label float-Hours" htmlFor="hours-input">Estimated Hours *</label>
           <input
             type="number"
@@ -198,10 +286,12 @@ function TaskForm({ tasks, onTaskCreated }) {
             placeholder="0"
             value={values.hours}
             onChange={handleChange}
-            onKeyDown={(e) => ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault()}
-            style={errors.hours ? { borderColor: "red" } : {}}
+            onKeyDown={(e) =>
+              ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault()
+            }
+            style={firstErrorKey === "hours" ? { borderColor: "red" } : {}}
           />
-          {errors.hours && (
+          {firstErrorKey === "hours" && errors.hours && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.hours}
@@ -209,16 +299,17 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        <div className="project-url">
+        {/* ── Project URL ── */}
+        <div className="project-url" ref={fieldRefs.current.url}>
           <input
             type="text"
             name="url"
             placeholder="Project URL *"
             value={values.url}
             onChange={handleChange}
-            style={errors.url ? { borderColor: "red" } : {}}
+            style={firstErrorKey === "url" ? { borderColor: "red" } : {}}
           />
-          {errors.url && (
+          {firstErrorKey === "url" && errors.url && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.url}
@@ -226,15 +317,16 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        <div className="task-description">
+        {/* ── Task Description ── */}
+        <div className="task-description" ref={fieldRefs.current.description}>
           <textarea
             name="description"
             placeholder="Task-Description *"
             value={values.description}
             onChange={handleChange}
-            style={errors.description ? { borderColor: "red" } : {}}
+            style={firstErrorKey === "description" ? { borderColor: "red" } : {}}
           ></textarea>
-          {errors.description && (
+          {firstErrorKey === "description" && errors.description && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.description}
@@ -242,7 +334,8 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        <div className="task-type">
+        {/* ── Task Type (checkboxes) ── */}
+        <div className="task-type" ref={fieldRefs.current.taskTypes}>
           <label className="checkbox-label">Task Type *</label>
           <br />
           <input
@@ -279,7 +372,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           />
           <label htmlFor="Enhancement" className="check-label">Enhancement</label>
           <br />
-          {errors.taskTypes && (
+          {firstErrorKey === "taskTypes" && errors.taskTypes && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.taskTypes}
@@ -287,7 +380,8 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        <div className="status">
+        {/* ── Status (radio) ── */}
+        <div className="status" ref={fieldRefs.current.status}>
           <label className="status-label">Status *</label>
           <br />
           <input
@@ -312,7 +406,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           />
           <label htmlFor="InProgress" className="radio-label in-progress-label">In Progress</label>
           <br />
-          {errors.status && (
+          {firstErrorKey === "status" && errors.status && (
             <span className="error">
               <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i>{" "}
               {errors.status}
@@ -320,12 +414,20 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
+        {/* ── Buttons ── */}
         <div className="buttons">
-          <button type="submit" id="create-button" className="create-button" disabled={submitting}>
+          <button
+            type="submit"
+            id="create-button"
+            className="create-button"
+            disabled={submitting}
+          >
             <span>&#10003;</span> {submitting ? "Creating..." : "Create Task"}
           </button>
           <button type="reset" id="reset-button" className="reset-button">
-            <span>&#10006;</span> <br></br> Reset
+            <span>&#10006;</span>
+            <br />
+            Reset
           </button>
         </div>
       </form>

@@ -18,15 +18,13 @@ function Dashboard({ onToast }) {
   const fetchTasks = useCallback(async () => {
     try {
       setLoading(true);
-
       const data = await getAllTasks();
-
-      setTasks(data);
-    } 
-    catch (err) {
+    
+      setTasks(Array.isArray(data.tasks) ? data.tasks : []);
+    } catch (err) {
       console.error("Failed to fetch tasks:", err);
-    } 
-    finally {
+      setTasks([]);
+    } finally {
       setLoading(false);
     }
   }, []);
@@ -35,31 +33,49 @@ function Dashboard({ onToast }) {
     fetchTasks();
   }, [fetchTasks]);
 
+  function mapFormToPayload(formValues) {
+    return {
+      assigneeName:    formValues.username,
+      taskName:        formValues.name,
+      assigneeEmail:   formValues.email,
+      dueDate:         formValues.date,
+      dueTime:         formValues.time,
+      priorityLevel:   formValues.priority,
+      estimatedHours:  formValues.hours,
+      projectUrl:      formValues.url,
+      taskDescription: formValues.description,
+      taskTypes:       formValues.taskTypes,
+      taskStatus:      formValues.status,
+    };
+  }
+
+
   async function handleCreateTask(formValues) {
-    const newTask = await createTask(formValues);
-
-    setTasks((previous) => [...previous, newTask]);
-
+    const newTask = await createTask(mapFormToPayload(formValues));
+    
+    setTasks((previous) => [...(Array.isArray(previous) ? previous : []), newTask]);
     onToast("Task Created Successfully");
   }
 
   async function handleUpdateTask(id, formValues) {
-    const updated = await updateTask(id, formValues);
-
-    setTasks((previous) => previous.map((task) => (task.id === id ? updated : task)));
-
+    const updated = await updateTask(id, mapFormToPayload(formValues));
+    setTasks((previous) =>
+      (Array.isArray(previous) ? previous : []).map((task) =>
+        task.id === id ? updated : task
+      )
+    );
     onToast("Task Updated Successfully");
   }
 
   async function handleDeleteConfirm() {
     if (!deleteTarget) return;
-
     await deleteTask(deleteTarget.id);
-
-    setTasks((previous) => previous.filter((task) => task.id !== deleteTarget.id));
-
+    setTasks((previous) =>
+      (Array.isArray(previous) ? previous : []).filter(
+        (task) => task.id !== deleteTarget.id
+      )
+    );
     setDeleteTarget(null);
-
     onToast("Task Deleted Successfully");
   }
 
@@ -83,11 +99,26 @@ function Dashboard({ onToast }) {
         />
       </section>
 
-      {selectedTask && (<FullTaskPopup task={selectedTask} onClose={() => setSelectedTask(null)} />)}
+      {selectedTask && (
+        <FullTaskPopup task={selectedTask} onClose={() => setSelectedTask(null)} />
+      )}
 
-      {editTask && (<EditPopup task={editTask} tasks={tasks} onClose={() => setEditTask(null)} onUpdate={handleUpdateTask} />)}
+      {editTask && (
+        <EditPopup
+          task={editTask}
+          tasks={tasks}
+          onClose={() => setEditTask(null)}
+          onUpdate={handleUpdateTask}
+        />
+      )}
 
-      {deleteTarget && (<DeletePopup task={deleteTarget} onCancel={() => setDeleteTarget(null)} onConfirm={handleDeleteConfirm} />)}
+      {deleteTarget && (
+        <DeletePopup
+          task={deleteTarget}
+          onCancel={() => setDeleteTarget(null)}
+          onConfirm={handleDeleteConfirm}
+        />
+      )}
     </>
   );
 }

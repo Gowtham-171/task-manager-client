@@ -9,16 +9,21 @@ const filters = ["all", "high", "medium", "low"];
 function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }) {
   const [activeFilter, setActiveFilter] = useState("all");
 
+  const safeTasks = Array.isArray(tasks) ? tasks : [];
+
   const filtered =
     activeFilter === "all"
-      ? tasks
-      : tasks.filter((task) => task.priority.toLowerCase() === activeFilter);
+      ? safeTasks
+      : safeTasks.filter(
+          
+          (task) => (task.priorityLevel ?? "").toLowerCase() === activeFilter
+        );
 
   function countByPriority(p) {
-    return tasks.filter((task) => task.priority.toLowerCase() === p).length;
+    return safeTasks.filter((task) => (task.priorityLevel ?? "").toLowerCase() === p).length;
   }
 
-  const showGlobalEmpty = tasks.length === 0;
+  const showGlobalEmpty = safeTasks.length === 0;
   const showPriorityEmpty = !showGlobalEmpty && filtered.length === 0;
 
   return (
@@ -37,7 +42,7 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
             >
               {f.charAt(0).toUpperCase() + f.slice(1)}{" "}
               <span>
-                ({f === "all" ? tasks.length : countByPriority(f)})
+                ({f === "all" ? safeTasks.length : countByPriority(f)})
               </span>
             </a>
           ))}
@@ -61,14 +66,16 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
       )}
 
       {!loading && !showGlobalEmpty && (
-        <div className={`task-card-container${tasks.length > 4 ? " scroll" : ""}`}>
+        <div className={`task-card-container${safeTasks.length > 4 ? " scroll" : ""}`}>
           {showPriorityEmpty ? (
             <div className="empty-task priority-empty">
               <div className="task-image">
                 <img src={noTaskImage} alt="No tasks" />
               </div>
               <h3>
-                {activeFilter === "all" ? "No Tasks" : `No ${activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)} Priority Tasks`}
+                {activeFilter === "all"
+                  ? "No Tasks"
+                  : `No ${activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)} Priority Tasks`}
               </h3>
               <p>Try adding a task or switch priority</p>
             </div>

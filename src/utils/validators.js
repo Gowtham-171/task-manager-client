@@ -3,35 +3,33 @@ export const userPattern = /^(?:[A-Za-z]{3,})(?:[.\s][A-Za-z]+)*$/;
 export const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 export const urlPattern = /^https?:\/\/[\w.-]+(\.[\w.-]+)+([/#?].*)?$/i;
 
-export function validateTaskForm(values, existingTasks, editTaskId = null) {
+export function validateTaskForm(values, existingTasks = [], editTaskId = null) {
   const errors = {};
 
   // Assignee Name
   if (!values.username || values.username.trim() === "") {
     errors.username = "Assignee Name is required";
-  }
-  else if (values.username.trim().length < 3) {
+  } else if (values.username.trim().length < 3) {
     errors.username = "Assignee Name must be at least 3 characters";
-  }
-  else if (!userNameValidator.test(values.username.trim())) {
+  } else if (!userNameValidator.test(values.username.trim())) {
     errors.username = "Assignee name cannot include numbers or special characters";
-  }
-  else if (values.username.trim().startsWith(".") || values.username.trim().endsWith(".")) {
+  } else if (
+    values.username.trim().startsWith(".") ||
+    values.username.trim().endsWith(".")
+  ) {
     errors.username = "Assignee Name cannot start or end with a dot";
-  }
-  else if (!userPattern.test(values.username.trim())) {
+  } else if (!userPattern.test(values.username.trim())) {
     errors.username = "Invalid Assignee Name format";
   }
 
   // Task Name
   if (!values.name || values.name.trim() === "") {
     errors.name = "Task Name is required";
-  }
-  else if (!userNameValidator.test(values.name.trim())) {
+  } else if (!userNameValidator.test(values.name.trim())) {
     errors.name = "Task name cannot include numbers or special characters";
-  }
-  else {
-    const duplicate = existingTasks.some(
+  } else {
+    const tasks = Array.isArray(existingTasks) ? existingTasks : [];
+    const duplicate = tasks.some(
       (t) =>
         t.name.toLowerCase() === values.name.trim().toLowerCase() &&
         t.id !== editTaskId
@@ -42,42 +40,39 @@ export function validateTaskForm(values, existingTasks, editTaskId = null) {
   // Email
   if (!values.email || values.email.trim() === "") {
     errors.email = "Assignee Email is required";
-  }
-  else if (!values.email.includes("@")) {
+  } else if (!values.email.includes("@")) {
     errors.email = "Email must include '@' symbol";
-  }
-  else if (!emailPattern.test(values.email.trim())) {
+  } else if (!emailPattern.test(values.email.trim())) {
     errors.email = "Please enter a valid email (e.g., name@email.com)";
   }
 
-  // Date
+  // Due Date
   if (!values.date) {
     errors.date = "Due Date is required";
   }
 
-  // Time
+  // Due Time
   if (!values.time) {
     errors.time = "Due Time is required";
-  }
-  else if (values.date === formattedTodayDate()) {
+  } else if (values.date === formattedTodayDate()) {
     if (values.time < formattedCurrentTime()) {
       errors.time = "Due Time cannot be in the past";
     }
   }
 
-  // Priority
+  // Priority 
   if (!values.priority) {
     errors.priority = "Priority Level is required";
   }
 
-  // Hours
+  // Estimated Hours
   if (!values.hours && values.hours !== 0) {
     errors.hours = "Estimated Hours are required";
   } else if (Number(values.hours) <= 0) {
     errors.hours = "Estimated Hours must be more than 0";
   }
 
-  // URL
+  // Project URL
   if (!values.url || values.url.trim() === "") {
     errors.url = "Project URL is required";
   } else if (!/^https?:\/\//i.test(values.url.trim())) {
@@ -89,6 +84,8 @@ export function validateTaskForm(values, existingTasks, editTaskId = null) {
   // Description
   if (!values.description || values.description.trim() === "") {
     errors.description = "Task Description is required";
+  } else if (values.description.trim().length < 3) {
+    errors.description = "Task description must be at least 3 characters";
   }
 
   // Task Types
