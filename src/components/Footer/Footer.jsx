@@ -1,4 +1,7 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
 import "./Footer.css";
 
 function Footer() {
@@ -45,7 +48,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <div className="footer-copyrights">
-          <p>© {year} TaskManager. All rights reserved. Built with / for productivity.</p>
+          <p>© {year} TaskManager. All rights reserved. Built with <FontAwesomeIcon icon={faHeart}/> for productivity.</p>
         </div>
       </div>
     </footer>

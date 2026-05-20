@@ -1,10 +1,14 @@
 import React from "react";
 import { formatDisplayDate } from "../../utils/validators";
+import calender from "../../assets/images/calendar-image.png";
+import person from "../../assets/images/person-image.png";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {faSquareCheck} from "@fortawesome/free-solid-svg-icons";
 import "./TaskCard.css";
 
 function TaskCard({ task, onClick, onEdit, onDelete }) {
-  const priorityClass = task.priority.toLowerCase();
-  const statusClass = task.status.toLowerCase().replace(" ", "-");
+  const priorityClass = (task.priorityLevel ?? "").toLowerCase();
+  const statusClass = (task.taskStatus ?? "").toLowerCase().replace(" ", "-");
 
   function handleCardClick(e) {
     if (e.target.closest(".edit-btn") || e.target.closest(".delete-btn")) return;
@@ -19,7 +23,7 @@ function TaskCard({ task, onClick, onEdit, onDelete }) {
       onClick={handleCardClick}
     >
       <div className="task-card-title">
-        <h4>{task.name}</h4>
+        <h4>{task.taskName}</h4>
         <div className="task-actions">
           <span
             className="action-icon-outline edit-btn"
@@ -36,24 +40,24 @@ function TaskCard({ task, onClick, onEdit, onDelete }) {
         </div>
       </div>
 
-      <p>{task.description}</p>
+      <p>{task.taskDescription}</p>
 
       <p className="task-card-date">
-        <img src="/images/Calendar-image.png" alt="Calendar" />
-        Due: {formatDisplayDate(task.date)}
+        <img src={calender} alt="Calendar" />
+        Due: {formatDisplayDate(task.dueDate)}
       </p>
 
       <p className="task-card-person">
-        <img src="/images/Person-image.png" alt="Person" />
-        {task.username}
+        <img src={person} alt="Person" />
+        {task.assigneeName}
       </p>
 
       <div className="priority-container">
         <label className={priorityClass}>
-          <span>&#9679;</span>{task.priority}
+          <span>&#9679;</span>{task.priorityLevel}
         </label>
         <label className={`status-label-badge ${statusClass}`}>
-          <small>&#9679;</small>{task.status}
+          <small>&#9679;</small>{task.taskStatus}
         </label>
       </div>
     </div>

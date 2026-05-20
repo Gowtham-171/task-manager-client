@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import TaskCard from "./TaskCard";
 import addTaskImage from "../../assets/images/add-task-image.png";
-import noTaskImage from "../../assets/images/no-task-image.png"
+import noTaskImage from "../../assets/images/no-task-image.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faSquareCheck} from "@fortawesome/free-solid-svg-icons";
 import "./ActiveTasks.css";
 
 const filters = ["all", "high", "medium", "low"];
@@ -15,7 +17,6 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
     activeFilter === "all"
       ? safeTasks
       : safeTasks.filter(
-          
           (task) => (task.priorityLevel ?? "").toLowerCase() === activeFilter
         );
 
@@ -30,7 +31,7 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
     <section className="active-task-section">
       <div className="task-card-heading">
         <div className="active-panel-title">
-          <h3>✅ Active Tasks</h3>
+          <h3><FontAwesomeIcon icon={faSquareCheck} className="active-task-icon"/> Active Tasks</h3>
         </div>
 
         <div className="filter-buttons">
@@ -81,9 +82,10 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
             </div>
           ) : (
             <div className="task-list">
-              {[...filtered].reverse().map((task) => (
+              
+              {[...filtered].reverse().map((task, index) => (
                 <TaskCard
-                  key={task.id}
+                  key={`${task.taskName}-${index}`}
                   task={task}
                   onClick={onCardClick}
                   onEdit={onEditClick}

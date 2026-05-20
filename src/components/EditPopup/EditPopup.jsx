@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { validateTaskForm, formattedTodayDate } from "../../utils/validators";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faFilePen} from "@fortawesome/free-solid-svg-icons";
 import "./EditPopup.css";
 
 function EditPopup({ task, tasks, onClose, onUpdate }) {
@@ -9,23 +11,24 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
 
   useEffect(() => {
     if (task) {
+      // console.log("Task received in EditPopup:", task);
       setValues({
-        username: task.username || "",
-        name: task.name || "",
-        email: task.email || "",
-        date: task.date || "",
-        time: task.time || "",
-        priority: task.priority || "",
-        hours: task.hours || "",
-        url: task.url || "",
-        description: task.description || "",
-        progress: task.progress || 0,
+        username: task.assigneeName || "",
+        name: task.taskName || "",
+        email: task.assigneeEmail || "",
+        date: task.dueDate || "",
+        time: task.dueTime || "",
+        priority: task.priorityLevel || "Low",  
+        hours: task.estimatedHours || "",
+        url: task.projectUrl || "",
+        description: task.taskDescription || "",
+        progress: task.taskProgress ?? 0,
         taskTypes: Array.isArray(task.taskTypes) ? task.taskTypes : [],
-        status: task.status || "",
+        status: task.taskStatus || "",
       });
       setErrors({});
     }
-  }, [task]);
+  }, [task?.id]);
 
   if (!task || !values) return null;
 
@@ -69,7 +72,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
       await onUpdate(task.id, values);
       onClose();
     } catch (err) {
-      console.error(err);
+      console.error("Update failed:", err);
     } finally {
       setSubmitting(false);
     }
@@ -87,7 +90,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
             <button className="popup-close" onClick={onClose}>
               <i className="fa-solid fa-xmark"></i>
             </button>
-            <h3>📝 Edit Task</h3>
+            <h3><FontAwesomeIcon icon={faFilePen} className="create-task-icon"/> Edit Task</h3>
           </div>
 
           <div className="edit-popup-body">
@@ -104,7 +107,11 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                   onChange={handleChange}
                   style={errors.username ? { borderColor: "red" } : {}}
                 />
-                {errors.username && <span className="error"><i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.username}</span>}
+                {errors.username && (
+                  <span className="error">
+                    <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.username}
+                  </span>
+                )}
               </div>
 
               <div className="input-name">
@@ -118,7 +125,11 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                   onChange={handleChange}
                   style={errors.name ? { borderColor: "red" } : {}}
                 />
-                {errors.name && <span className="error"><i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.name}</span>}
+                {errors.name && (
+                  <span className="error">
+                    <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.name}
+                  </span>
+                )}
               </div>
 
               <div className="input-email">
@@ -132,7 +143,11 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                   onChange={handleChange}
                   style={errors.email ? { borderColor: "red" } : {}}
                 />
-                {errors.email && <span className="error"><i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.email}</span>}
+                {errors.email && (
+                  <span className="error">
+                    <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.email}
+                  </span>
+                )}
               </div>
 
               <div className="edit-row">
@@ -147,7 +162,11 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                     onChange={handleChange}
                     style={errors.date ? { borderColor: "red" } : {}}
                   />
-                  {errors.date && <span className="error"><i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.date}</span>}
+                  {errors.date && (
+                    <span className="error">
+                      <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.date}
+                    </span>
+                  )}
                 </div>
 
                 <div className="input-time">
@@ -160,7 +179,11 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                     onChange={handleChange}
                     style={errors.time ? { borderColor: "red" } : {}}
                   />
-                  {errors.time && <span className="error"><i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.time}</span>}
+                  {errors.time && (
+                    <span className="error">
+                      <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.time}
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -189,10 +212,16 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                     placeholder="0"
                     value={values.hours}
                     onChange={handleChange}
-                    onKeyDown={(e) => ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault()}
+                    onKeyDown={(e) =>
+                      ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault()
+                    }
                     style={errors.hours ? { borderColor: "red" } : {}}
                   />
-                  {errors.hours && <span className="error"><i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.hours}</span>}
+                  {errors.hours && (
+                    <span className="error">
+                      <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.hours}
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -207,7 +236,11 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                   onChange={handleChange}
                   style={errors.url ? { borderColor: "red" } : {}}
                 />
-                {errors.url && <span className="error"><i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.url}</span>}
+                {errors.url && (
+                  <span className="error">
+                    <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.url}
+                  </span>
+                )}
               </div>
 
               <div className="task-description">
@@ -215,12 +248,16 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 <textarea
                   name="description"
                   id="taskDescription"
-                  placeholder="Task-Description"
+                  placeholder="Task Description"
                   value={values.description}
                   onChange={handleChange}
                   style={errors.description ? { borderColor: "red" } : {}}
                 ></textarea>
-                {errors.description && <span className="error"><i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.description}</span>}
+                {errors.description && (
+                  <span className="error">
+                    <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {errors.description}
+                  </span>
+                )}
               </div>
 
               <div className="task-progress">
@@ -230,7 +267,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                   type="range"
                   id="taskProgress"
                   className="input-range"
-                  name="range"
+                  name="progress"
                   min="0"
                   max="100"
                   value={values.progress}

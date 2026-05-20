@@ -1,4 +1,3 @@
-
 /* TASK PANEL SECTION */
 
 .task-panel-section {
@@ -16,6 +15,11 @@
 .task-panel-title {
   font-size: 19px;
   margin: 10px 10px 13px 2px;
+}
+
+.create-task-icon {
+  font-size: 22px;
+  margin-left: 4px;
 }
 
 .task-panel-section input,

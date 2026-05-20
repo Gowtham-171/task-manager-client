@@ -27,6 +27,11 @@
   margin-top: 3px;
 }
 
+.active-task-icon {
+  font-size: 22px;
+  margin-left: 3px;
+}
+
 .filter-buttons {
   display: flex;
   align-items: center;

@@ -1,5 +1,8 @@
 import React, { useState, useRef } from "react";
 import { validateTaskForm, formattedTodayDate } from "../../utils/validators";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faFilePen} from "@fortawesome/free-solid-svg-icons";
+
 import "./TaskForm.css";
 
 const INITIAL_STATE = {
@@ -89,7 +92,6 @@ function TaskForm({ tasks, onTaskCreated }) {
       setValues(INITIAL_STATE);
       setErrors({});
     } catch (err) {
-      // Map backend error messages → correct form field
       const message = err.message || "";
       let backendErrors = {};
 
@@ -148,7 +150,7 @@ function TaskForm({ tasks, onTaskCreated }) {
   return (
     <section className="task-panel-section">
       <div className="task-panel-title">
-        <h3>📝 Create New Task</h3>
+        <h3><FontAwesomeIcon icon={faFilePen} className="create-task-icon"/> Create New Task</h3>
       </div>
 
       <form id="form" onSubmit={handleSubmit} onReset={handleReset}>

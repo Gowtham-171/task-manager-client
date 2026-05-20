@@ -31,7 +31,7 @@ export function validateTaskForm(values, existingTasks = [], editTaskId = null) 
     const tasks = Array.isArray(existingTasks) ? existingTasks : [];
     const duplicate = tasks.some(
       (t) =>
-        t.name.toLowerCase() === values.name.trim().toLowerCase() &&
+        t.taskName.toLowerCase() === values.name.trim().toLowerCase() &&
         t.id !== editTaskId
     );
     if (duplicate) errors.name = "Task Name already exists";

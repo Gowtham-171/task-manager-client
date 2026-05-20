@@ -13,7 +13,7 @@ function DeletePopup({ task, onCancel, onConfirm }) {
         </div>
         <h2>Delete Task</h2>
         <p>
-          <span id="delete-task-name">{task.name}</span>
+          <span id="delete-task-name">{task.taskName}</span>
           <br />
           will be deleted permanently
         </p>
