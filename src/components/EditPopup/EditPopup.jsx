@@ -11,7 +11,6 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
 
   useEffect(() => {
     if (task) {
-      // console.log("Task received in EditPopup:", task);
       setValues({
         username: task.assigneeName || "",
         name: task.taskName || "",
@@ -93,8 +92,8 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
             <h3><FontAwesomeIcon icon={faFilePen} className="create-task-icon"/> Edit Task</h3>
           </div>
 
-          <div className="edit-popup-body">
             <form className="edit-form" onSubmit={handleSubmit}>
+          <div className="edit-popup-body">
 
               <div className="input-username">
                 <label className="float-label">Assignee Name</label>
@@ -133,7 +132,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
               </div>
 
               <div className="input-email">
-                <label className="float-label">Email</label>
+                <label className="float-label">Assignee Email</label>
                 <input
                   type="text"
                   name="email"
@@ -320,19 +319,18 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 </div>
                 {errors.status && <span className="error">{errors.status}</span>}
               </div>
-
-              <div className="edit-popup-buttons">
-                <button type="submit" className="button primary" disabled={submitting}>
-                  {submitting ? "Updating..." : "Update Task"}
-                </button>
-                <button type="button" className="button cancel" onClick={onClose}>
-                  Cancel
-                </button>
-              </div>
-            </form>
           </div>
-        </div>
+          <div className="edit-popup-buttons">
+            <button type="submit" className="button primary" disabled={submitting}>
+              {submitting ? "Updating..." : "Update Task"}
+            </button>
+            <button type="button" className="button cancel" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
+     </div>
     </section>
   );
 }

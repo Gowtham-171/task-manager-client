@@ -19,7 +19,6 @@ const INITIAL_STATE = {
   status: "",
 };
 
-
 const FIELD_ORDER = [
   "username",
   "name",
@@ -38,7 +37,6 @@ function TaskForm({ tasks, onTaskCreated }) {
   const [values, setValues] = useState(INITIAL_STATE);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
-
 
   const fieldRefs = useRef(
     Object.fromEntries(FIELD_ORDER.map((key) => [key, React.createRef()]))
@@ -91,7 +89,8 @@ function TaskForm({ tasks, onTaskCreated }) {
       await onTaskCreated(values);
       setValues(INITIAL_STATE);
       setErrors({});
-    } catch (err) {
+    } 
+    catch (err) {
       const message = err.message || "";
       let backendErrors = {};
 
@@ -133,7 +132,8 @@ function TaskForm({ tasks, onTaskCreated }) {
       setErrors(backendErrors);
       const firstErrorKey = FIELD_ORDER.find((key) => backendErrors[key]);
       if (firstErrorKey) scrollToField(firstErrorKey);
-    } finally {
+    } 
+    finally {
       setSubmitting(false);
     }
   }
@@ -155,7 +155,7 @@ function TaskForm({ tasks, onTaskCreated }) {
 
       <form id="form" onSubmit={handleSubmit} onReset={handleReset}>
 
-        {/* ── Assignee Name ── */}
+        {/* Assignee Name */}
         <div className="input-username" ref={fieldRefs.current.username}>
           <input
             type="text"
@@ -174,7 +174,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Task Name ── */}
+        {/* Task Name */}
         <div className="input-name" ref={fieldRefs.current.name}>
           <input
             type="text"
@@ -193,7 +193,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Assignee Email ── */}
+        {/* Assignee Email */}
         <div className="input-email" ref={fieldRefs.current.email}>
           <input
             type="text"
@@ -212,7 +212,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Due Date ── */}
+        {/* Due Date */}
         <div className="input-date" ref={fieldRefs.current.date}>
           <label className="float-label" htmlFor="date-input">Due Date *</label>
           <input
@@ -233,7 +233,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Due Time ── */}
+        {/* Due Time */}
         <div className="input-time" ref={fieldRefs.current.time}>
           <label className="float-label" htmlFor="time-input">Due Time *</label>
           <input
@@ -253,7 +253,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Priority Level ── */}
+        {/* Priority Level */}
         <div className="select-priority" ref={fieldRefs.current.priority}>
           <label className="float-label" htmlFor="priority-select">Priority Level *</label>
           <select
@@ -277,7 +277,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Estimated Hours ── */}
+        {/* Estimated Hours */}
         <div className="input-hours" ref={fieldRefs.current.hours}>
           <label className="float-label float-Hours" htmlFor="hours-input">Estimated Hours *</label>
           <input
@@ -301,7 +301,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Project URL ── */}
+        {/* Project URL */}
         <div className="project-url" ref={fieldRefs.current.url}>
           <input
             type="text"
@@ -319,7 +319,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Task Description ── */}
+        {/* Task Description */}
         <div className="task-description" ref={fieldRefs.current.description}>
           <textarea
             name="description"
@@ -336,7 +336,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Task Type (checkboxes) ── */}
+        {/* Task Type (checkboxes) */}
         <div className="task-type" ref={fieldRefs.current.taskTypes}>
           <label className="checkbox-label">Task Type *</label>
           <br />
@@ -382,7 +382,7 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Status (radio) ── */}
+        {/* Status (radio) */}
         <div className="status" ref={fieldRefs.current.status}>
           <label className="status-label">Status *</label>
           <br />
@@ -416,20 +416,14 @@ function TaskForm({ tasks, onTaskCreated }) {
           )}
         </div>
 
-        {/* ── Buttons ── */}
+        {/* Buttons */}
         <div className="buttons">
-          <button
-            type="submit"
-            id="create-button"
-            className="create-button"
-            disabled={submitting}
-          >
+          <button type="submit" id="create-button" className="create-button" disabled={submitting}>
             <span>&#10003;</span> {submitting ? "Creating..." : "Create Task"}
           </button>
+
           <button type="reset" id="reset-button" className="reset-button">
-            <span>&#10006;</span>
-            <br />
-            Reset
+            <span>&#10006;</span><br />Reset
           </button>
         </div>
       </form>

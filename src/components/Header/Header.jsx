@@ -28,13 +28,13 @@ function Header() {
       <nav className={`nav-container${menuOpen ? " active" : ""}`}>
         <ul className="nav-links">
           <li>
-            <a href="#" className="active-nav" onClick={closeMenu}>Dashboard</a>
+            <p className="active-nav" onClick={closeMenu}>Dashboard</p>
           </li>
           <li>
-            <a href="#" onClick={closeMenu}>Tasks</a>
+            <p onClick={closeMenu}>Tasks</p>
           </li>
           <li>
-            <a href="#" onClick={closeMenu}>Profile</a>
+            <p onClick={closeMenu}>Profile</p>
           </li>
         </ul>
       </nav>

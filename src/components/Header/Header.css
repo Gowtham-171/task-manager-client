@@ -41,15 +41,19 @@ header .logo {
   gap: 20px;
 }
 
-.nav-links a {
-  text-decoration: none;
+.nav-links p {
   padding: 10px;
   margin: 0px 10px;
   color: rgba(0, 0, 0, 0.6);
   outline: none;
+  cursor: pointer;
 }
 
-.nav-links a.active-nav {
+.nav-links p:hover {
+  color: rgb(93, 95, 239);
+}
+
+.nav-links p.active-nav {
   background-color: rgb(242, 243, 245);
   color: rgb(93, 95, 239);
   border-radius: 11px;
@@ -151,7 +155,7 @@ header .logo {
     margin: 10px 0;
   }
 
-  .nav-links a {
+  .nav-links p {
     display: block;
     padding: 10px;
     font-size: 16px;

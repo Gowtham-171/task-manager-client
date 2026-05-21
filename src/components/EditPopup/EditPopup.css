@@ -1,3 +1,6 @@
+
+/* EDIT TASK POPUP */
+
 .edit-popup {
   position: fixed;
   inset: 0;
@@ -48,6 +51,8 @@
 
 .edit-popop-box .task-panel-title {
   margin: 10px 0 5px 2px;
+  display: flex;
+  justify-content: center;
 }
 
 .edit-popup input,
@@ -156,7 +161,7 @@
 }
 
 .edit-popup-buttons {
-  padding: 18px 26px;
+  padding: 18px 26px 0px 26px;
   border-top: 1px solid #eee;
   display: flex;
   justify-content: center;
@@ -218,12 +223,18 @@
   transform: scale(1.1);
 }
 
+/* Mobile View */
+
 @media (max-width: 600px) {
   .edit-popop-box {
     width: 90%;
     max-height: 90vh;
     height: auto;
     padding: 16px;
+  }
+
+  .edit-task-border {
+    height: auto;
   }
 
   .edit-row {

@@ -6,6 +6,7 @@ import person from "../../assets/images/person-image.png";
 // import {faSquareCheck} from "@fortawesome/free-solid-svg-icons";
 import "./TaskCard.css";
 
+
 function TaskCard({ task, onClick, onEdit, onDelete }) {
   const priorityClass = (task.priorityLevel ?? "").toLowerCase();
   const statusClass = (task.taskStatus ?? "").toLowerCase().replace(" ", "-");

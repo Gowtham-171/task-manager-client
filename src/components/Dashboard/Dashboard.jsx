@@ -7,6 +7,7 @@ import DeletePopup from "../DeletePopup/DeletePopup";
 import { getAllTasks, createTask, updateTask, deleteTask } from "../../utils/api";
 import "./Dashboard.css";
 
+
 function Dashboard({ onToast }) {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,13 +19,16 @@ function Dashboard({ onToast }) {
   const fetchTasks = useCallback(async () => {
     try {
       setLoading(true);
+
       const data = await getAllTasks();
 
       setTasks(Array.isArray(data.data) ? data.data : []); 
-    } catch (err) {
+    } 
+    catch (err) {
       console.error("Failed to fetch tasks:", err);
       setTasks([]);
-    } finally {
+    } 
+    finally {
       setLoading(false);
     }
   }, []);

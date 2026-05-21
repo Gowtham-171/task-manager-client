@@ -52,7 +52,7 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
 
       {loading && (
         <div className="empty-task">
-          <p>Loading tasks...</p>
+          <h4>Loading tasks...</h4>
         </div>
       )}
 
