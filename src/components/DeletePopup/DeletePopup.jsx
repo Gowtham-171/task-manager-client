@@ -16,7 +16,7 @@ function DeletePopup({ task, onCancel, onConfirm }) {
         </div>
 
         <p>
-          <span id="delete-task-name">{task.taskName}</span> will be deleted permanently.
+          Are you sure you want to delete <span id="delete-task-name">{task.taskName}</span> permanently ?
         </p>
 
         <div className="delete-popup-buttons">

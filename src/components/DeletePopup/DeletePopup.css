@@ -22,10 +22,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  text-align: center;
   width: min(92vw, 450px);
   background: #ffffff;
   border-radius: 14px;
-  padding: 24px 28px 22px;
+  padding: 24px 25px 22px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
   z-index: 999;
 }
@@ -33,48 +34,47 @@
 .delete-popup-header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
 }
 
 .delete-popup .icon {
   width: 36px;
   height: 36px;
-  background: #fff1f0;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 21px;
-  color: #e53935;
   flex-shrink: 0;
+  /* background: #fff1f0; */
+  /* color: #e53935; */
 }
 
 .delete-popup h2 {
   font-size: 20px;
   font-weight: 650;
-  /* color: rgb(17, 17, 17); */
-  color: black;
-  margin: 0;
-  letter-spacing: -0.01em;
+  margin-top: 2px;
+  /* margin: 0; */
+  /* color: black; */
 }
 
 .delete-popup p {
   font-size: 14px;
   color: #666;
   line-height: 1.55;
-  margin: 20px 0 25px 10px;
+  margin: 17px 0 25px 5px;
 }
 
 #delete-task-name {
   font-weight: 600;
-  /* color: #222; */
   color: #777;
+  /* color: #222; */
 }
 
 .delete-popup-buttons {
   display: flex;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .delete-popup-buttons button {
@@ -85,7 +85,6 @@
   font-weight: 600;
   border: none;
   cursor: pointer;
-  /* transition: background 0.18s ease, box-shadow 0.18s ease; */
   font-family: inherit;
   white-space: nowrap;
 }
@@ -109,6 +108,8 @@
   background: #d32f2f;
   box-shadow: 0 4px 14px rgba(229, 57, 53, 0.38);
 }
+
+/* Mobile View */
 
 @media (max-width: 480px) {
   .delete-popup-box {

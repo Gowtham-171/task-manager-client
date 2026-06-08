@@ -13,15 +13,15 @@
 .edit-popup-overlay {
   position: absolute;
   inset: 0;
+  backdrop-filter: blur(3px);
   background: rgba(0, 0, 0, 0.7);
   /* background: rgba(0, 0, 0, 0.45); */
-  backdrop-filter: blur(3px);
 }
 
 .edit-popup-box {
   position: relative;
   width: 90%;
-  max-width: 500px;
+  max-width: 600px;
   max-height: 90vh;
   background: #fff;
   border-radius: 16px;
@@ -99,19 +99,9 @@
   flex: 1;
   overflow-y: auto;
   min-height: 0;
-  padding: 16px 20px 20px;
+  padding: 16px 20px 20px 23px;
   scrollbar-color: #ddd transparent;
-  /* scrollbar-width: thin; */
 }
-
-/* .edit-popup-scroll::-webkit-scrollbar {
-  width: 5px;
-}
-
-.edit-popup-scroll::-webkit-scrollbar-thumb {
-  background: #ddd;
-  border-radius: 5px;
-} */
 
 .edit-popup input,
 .edit-popup select {
@@ -276,12 +266,13 @@
   box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
 }
 
-/* Mobile */
+/* Mobile View */
+
 @media (max-width: 600px) {
   .edit-popup-box {
     width: 92%;
     max-height: 90vh;
-    padding: 14px;
+    padding: 15px;
   }
 
   .edit-row {

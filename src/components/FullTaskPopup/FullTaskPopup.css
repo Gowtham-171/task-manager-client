@@ -88,17 +88,7 @@
   overflow-y: auto;
   min-height: 0;
   scrollbar-color: #ddd transparent;
-  /* scrollbar-width: thin; */
 }
-
-/* .fulltask-popup-scroll::-webkit-scrollbar {
-  width: 5px;
-}
-
-.fulltask-popup-scroll::-webkit-scrollbar-thumb {
-  background: #ddd;
-  border-radius: 5px;
-} */
 
 .fulltask-popup-description {
   font-size: 14px;
@@ -108,6 +98,8 @@
   padding: 18px 22px;
   border-bottom: 1px solid #f0f1f3;
   text-align: justify;
+  max-height: 215px;
+  overflow-y: auto;
 }
 
 .fulltask-popup-body {
@@ -348,6 +340,8 @@
   text-decoration: underline;
 }
 
+/* Mobile View */
+
 @media (max-width: 540px) {
   .fulltask-popup-body {
     grid-template-columns: 1fr;
@@ -369,6 +363,10 @@
 
   .fulltask-popup-row {
     gap: 14px;
+  }
+
+  .fulltask-popup-box {
+    padding: 15px;
   }
 }
 
