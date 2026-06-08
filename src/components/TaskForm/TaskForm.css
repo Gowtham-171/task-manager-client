@@ -237,6 +237,10 @@
     border-radius: 8px;
   }
 
+  .task-panel-section textarea::placeholder {
+    font-size: 16px;
+  }
+
   .task-panel-section .checkbox-label {
     font-size: 16px;
     left: 12px;
@@ -331,8 +335,12 @@
     margin-bottom: 25px;
   }
 
+  .task-panel-section textarea::placeholder {
+    font-size: 16px;
+  }
+
   .task-panel-section .checkbox-label {
-    font-size: 17px;
+    font-size: 16px;
     left: 1%;
   }
 
@@ -342,12 +350,12 @@
   }
 
   .task-panel-section .check-label {
-    font-size: 17px;
+    font-size: 16px;
     left: -25px;
   }
 
   .task-panel-section .status-label {
-    font-size: 17px;
+    font-size: 16px;
     left: 1%;
   }
 
@@ -359,7 +367,7 @@
   }
 
   .task-panel-section .radio-label {
-    font-size: 17px;
+    font-size: 16px;
     left: -26px;
   }
 

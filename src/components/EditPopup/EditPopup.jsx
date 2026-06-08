@@ -87,7 +87,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
         <div className="edit-popup-border">
 
           <div className="edit-popup-header">
-            <h3 className="task-panel-title"><FontAwesomeIcon icon={faFilePen} /> Edit Task</h3>
+            <h3 className="edit-popup-title"><FontAwesomeIcon icon={faFilePen} /> Edit Task</h3>
             <button className="edit-popup-close" onClick={onClose} aria-label="Close">
               <i className="fa-solid fa-xmark"></i>
             </button>
@@ -102,7 +102,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                   type="text"
                   name="username"
                   id="taskUsername"
-                  placeholder="Assignee Name"
+                  placeholder="Assignee Name *"
                   value={values.username}
                   onChange={handleChange}
                   style={errors.username ? { borderColor: "red" } : {}}
@@ -231,7 +231,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                   type="text"
                   name="url"
                   id="taskUrl"
-                  placeholder="Project URL"
+                  placeholder="Project URL *"
                   value={values.url}
                   onChange={handleChange}
                   style={errors.url ? { borderColor: "red" } : {}}
@@ -248,7 +248,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 <textarea
                   name="description"
                   id="taskDescription"
-                  placeholder="Task Description"
+                  placeholder="Task Description *"
                   value={values.description}
                   onChange={handleChange}
                   style={errors.description ? { borderColor: "red" } : {}}

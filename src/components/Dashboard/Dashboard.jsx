@@ -58,6 +58,7 @@ function Dashboard({ onToast }) {
     await createTask(mapFormToPayload(formValues));
 
     await fetchTasks();
+
     onToast("Task Created Successfully");
   }
 
@@ -65,6 +66,7 @@ function Dashboard({ onToast }) {
     await updateTask(id, mapFormToPayload(formValues));
 
     await fetchTasks();
+
     setEditTask(null);
     onToast("Task Updated Successfully");
   }
