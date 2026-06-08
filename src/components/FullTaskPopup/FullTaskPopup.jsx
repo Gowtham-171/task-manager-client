@@ -22,131 +22,135 @@ function FullTaskPopup({ task, onClose }) {
     : [];
 
   return (
-    <section className="ftp-overlay">
-      <div className="ftp-backdrop" onClick={onClose}></div>
+    <section className="fulltask-popup">
+      <div className="fulltask-popup-overlay" onClick={onClose}></div>
 
-      <div className="ftp-modal">
-        <div className="ftp-modal-header">
-          <h3 className="ftp-title">{task.taskName}</h3>
-          <button className="ftp-close" onClick={onClose} aria-label="Close">
-            &#x2715;
-          </button>
-        </div>
+      <div className="fulltask-popup-box">
+        <div className="fulltask-popup-border">
 
-        <div className="ftp-body">
-          <div className="ftp-main">
-
-            <p className="ftp-desc">{task.taskDescription}</p>
-
-            <div className="ftp-section-label">Progress</div>
-            <div className="ftp-progress-block">
-              <div className="ftp-progress-top">
-                <span className="ftp-progress-sub">Completion</span>
-                <span className="ftp-progress-pct">{task.taskProgress || 0}%</span>
-              </div>
-              <div className="ftp-progress-track">
-                <div
-                  className="ftp-progress-fill"
-                  style={{ width: `${task.taskProgress || 0}%` }}
-                ></div>
-              </div>
-            </div>
-
-            <div className="ftp-section-label">Assigned to</div>
-            <div className="ftp-assignee">
-              <div className="ftp-avatar">{initials}</div>
-              <div className="ftp-assignee-info">
-                <div className="ftp-assignee-name">{task.assigneeName}</div>
-                <div className="ftp-assignee-email">{task.assigneeEmail}</div>
-              </div>
-            </div>
-
-            <div className="ftp-meta-row">
-
-              <div className="ftp-meta-group">
-                <span className="ftp-section-label">Task type</span>
-                <div className="ftp-chips">
-                  {taskTypes.map((t) => (
-                    <span key={t} className="ftp-chip">{t}</span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="ftp-meta-group">
-                <span className="ftp-section-label">Priority</span>
-                <div className="ftp-chips">
-                  <span className={`ftp-chip ftp-priority ${priorityClass}`}>
-                    <i className="fa-solid fa-circle" style={{ fontSize: "7px" }}></i>
-                    {task.priorityLevel}
-                  </span>
-                </div>
-              </div>
-
-              <div className="ftp-meta-group">
-                <span className="ftp-section-label">Status</span>
-                <div className="ftp-chips">
-                  <span className={`ftp-chip ftp-status ${statusClass}`}>
-                    <i className="fa-solid fa-circle" style={{ fontSize: "7px" }}></i>
-                    {task.taskStatus}
-                  </span>
-                </div>
-              </div>
-
-            </div>
-
+          <div className="fulltask-popup-header">
+            <h3 className="fulltask-popup-title">{task.taskName}</h3>
+            <button className="fulltask-popup-close" onClick={onClose} aria-label="Close">
+              <i className="fa-solid fa-xmark"></i>
+            </button>
           </div>
 
-          <div className="ftp-sidebar">
-            <div className="ftp-sidebar-label">Details</div>
+          <div className="fulltask-popup-scroll">
+            <p className="fulltask-popup-description">{task.taskDescription}</p>
 
-            <div className="ftp-detail-item">
-              <div className="ftp-detail-icon">
-                <i className="fa-regular fa-calendar"></i>
-              </div>
-              <div className="ftp-detail-text">
-                <span className="ftp-detail-key">Due date</span>
-                <span className="ftp-detail-val">{formatDisplayDate(task.dueDate)}</span>
-              </div>
-            </div>
+            <div className="fulltask-popup-body">
+              <div className="fulltask-popup-main">
 
-            <div className="ftp-detail-item">
-              <div className="ftp-detail-icon">
-                <i className="fa-regular fa-clock"></i>
-              </div>
-              <div className="ftp-detail-text">
-                <span className="ftp-detail-key">Due time</span>
-                <span className="ftp-detail-val">{task.dueTime}</span>
-              </div>
-            </div>
-
-            <div className="ftp-detail-item">
-              <div className="ftp-detail-icon">
-                <i className="fa-regular fa-hourglass"></i>
-              </div>
-              <div className="ftp-detail-text">
-                <span className="ftp-detail-key">Estimated hours</span>
-                <span className="ftp-detail-val">{task.estimatedHours} hrs</span>
-              </div>
-            </div>
-
-            {task.projectUrl && (
-              <div className="ftp-detail-item">
-                <div className="ftp-detail-icon">
-                  <i className="fa-solid fa-link"></i>
+                <span className="fulltask-popup-label">Assigned to</span>
+                <div className="fulltask-popup-assignee">
+                  <div className="fulltask-popup-avatar">{initials}</div>
+                  <div className="fulltask-popup-assignee-info">
+                    <div className="fulltask-popup-assignee-name">{task.assigneeName}</div>
+                    <div className="fulltask-popup-assignee-email">{task.assigneeEmail}</div>
+                  </div>
                 </div>
-                <div className="ftp-detail-text">
-                  <span className="ftp-detail-key">Project URL</span>
-                  <a
-                    className="ftp-detail-link"
-                    href={task.projectUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View project ↗
-                  </a>
+
+                <span className="fulltask-popup-label">Task Progress</span>
+                <div className="fulltask-popup-progress">
+                  <div className="fulltask-popup-progress-top">
+                    <span className="fulltask-popup-progress-text">Completion</span>
+                    <span className="fulltask-popup-progress-percent">{task.taskProgress || 0}%</span>
+                  </div>
+                  <div className="fulltask-popup-progress-range">
+                    <div
+                      className="fulltask-popup-progress-fill"
+                      style={{ width: `${task.taskProgress || 0}%` }}
+                    ></div>
+                  </div>
                 </div>
+
+                <div className="fulltask-popup-row">
+                  <div className="fulltask-popup-group">
+                    <span className="fulltask-popup-label">Priority Level</span>
+                    <div className="fulltask-popup-items">
+                      <span className={`fulltask-popup-item priority ${priorityClass}`}>
+                        <i className="fa-solid fa-circle" style={{ fontSize: "7px" }}></i>
+                        {task.priorityLevel}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="fulltask-popup-group">
+                    <span className="fulltask-popup-label">Status</span>
+                    <div className="fulltask-popup-itmes">
+                      <span className={`fulltask-popup-item status ${statusClass}`}>
+                        <i className="fa-solid fa-circle" style={{ fontSize: "7px" }}></i>
+                        {task.taskStatus}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="fulltask-popup-group">
+                    <span className="fulltask-popup-label">Task Type</span>
+                    <div className="fulltask-popup-items">
+                      {taskTypes.map((t) => (
+                        <span key={t} className="fulltask-popup-item">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
               </div>
-            )}
+
+              <div className="fulltask-popup-sidebar">
+                <div className="fulltask-popup-sidebar-label">Details</div>
+
+                <div className="fulltask-popup-detail-item">
+                  <div className="fulltask-popup-detail-icon">
+                    <i className="fa-regular fa-calendar"></i>
+                  </div>
+                  <div className="fulltask-popup-detail-text">
+                    <span className="fulltask-popup-detail-key">Due date</span>
+                    <span className="fulltask-popup-detail-val">{formatDisplayDate(task.dueDate)}</span>
+                  </div>
+                </div>
+
+                <div className="fulltask-popup-detail-item">
+                  <div className="fulltask-popup-detail-icon">
+                    <i className="fa-regular fa-clock"></i>
+                  </div>
+                  <div className="fulltask-popup-detail-text">
+                    <span className="fulltask-popup-detail-key">Due time</span>
+                    <span className="fulltask-popup-detail-val">{task.dueTime}</span>
+                  </div>
+                </div>
+
+                <div className="fulltask-popup-detail-item">
+                  <div className="fulltask-popup-detail-icon">
+                    <i className="fa-regular fa-hourglass"></i>
+                  </div>
+                  <div className="fulltask-popup-detail-text">
+                    <span className="fulltask-popup-detail-key">Estimated hours</span>
+                    <span className="fulltask-popup-detail-val">{task.estimatedHours} hrs</span>
+                  </div>
+                </div>
+
+                {task.projectUrl && (
+                  <div className="fulltask-popup-detail-item">
+                    <div className="fulltask-popup-detail-icon">
+                      <i className="fa-solid fa-link"></i>
+                    </div>
+                    <div className="fulltask-popup-detail-text">
+                      <span className="fulltask-popup-detail-key">Project URL</span>
+                      
+                      <a className="fulltask-popup-detail-link"
+                        href={task.projectUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        View project ↗
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+            </div>
           </div>
 
         </div>

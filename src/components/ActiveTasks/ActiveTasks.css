@@ -44,7 +44,7 @@
   color: black;
   border: 2px solid rgb(232, 234, 237);
   border-radius: 2rem;
-  font-size: clamp(0.7rem, 2vw, 0.85rem);
+  font-size: clamp(0.8rem, 2vw, 0.85rem);
   cursor: pointer;
   background-color: white;
   transition: background-color 0.2s, color 0.2s;
@@ -54,7 +54,7 @@
 
 .filter-buttons .filter-button span {
   display: inline-block;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .filter-buttons .filter-button.active {
@@ -212,7 +212,8 @@
 
   .filter-button {
     padding: 0.5rem 0.8rem;
-    font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+    font-size: clamp(0.5rem, 3.5vw, 0.95rem);
+    /* font-size: clamp(0.8rem, 3.5vw, 0.95rem); */
     border-radius: 18px;
     flex: 1;
     text-align: center;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { validateTaskForm, formattedTodayDate } from "../../utils/validators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faFilePen} from "@fortawesome/free-solid-svg-icons";
+import { faFilePen } from "@fortawesome/free-solid-svg-icons";
 import "./EditPopup.css";
 
 function EditPopup({ task, tasks, onClose, onUpdate }) {
@@ -17,7 +17,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
         email: task.assigneeEmail || "",
         date: task.dueDate || "",
         time: task.dueTime || "",
-        priority: task.priorityLevel || "Low",  
+        priority: task.priorityLevel || "Low",
         hours: task.estimatedHours || "",
         url: task.projectUrl || "",
         description: task.taskDescription || "",
@@ -80,20 +80,21 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
   const today = formattedTodayDate();
 
   return (
-    <section className="edit-popup" style={{ display: "flex" }}>
-      <div className="edit-overlay" onClick={onClose}></div>
+    <section className="edit-popup">
+      <div className="edit-popup-overlay" onClick={onClose}></div>
 
-      <div className="edit-popop-box">
-        <div className="edit-task-border">
-          <div className="task-panel-title">
-            <button className="popup-close" onClick={onClose}>
+      <div className="edit-popup-box">
+        <div className="edit-popup-border">
+
+          <div className="edit-popup-header">
+            <h3 className="task-panel-title"><FontAwesomeIcon icon={faFilePen} /> Edit Task</h3>
+            <button className="edit-popup-close" onClick={onClose} aria-label="Close">
               <i className="fa-solid fa-xmark"></i>
             </button>
-            <h3><FontAwesomeIcon icon={faFilePen} className="create-task-icon"/> Edit Task</h3>
           </div>
 
-            <form className="edit-form" onSubmit={handleSubmit}>
-          <div className="edit-popup-body">
+          <form className="edit-form" onSubmit={handleSubmit}>
+            <div className="edit-popup-scroll">
 
               <div className="input-username">
                 <label className="float-label">Assignee Name</label>
@@ -261,7 +262,6 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
 
               <div className="task-progress">
                 <label className="float-label">Task Progress</label>
-                <br />
                 <input
                   type="range"
                   id="taskProgress"
@@ -272,12 +272,11 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                   value={values.progress}
                   onChange={handleProgress}
                 />
-                <br />
                 <p className="task-progress-label">{values.progress}%</p>
               </div>
 
               <div className="task-types">
-                <label className="edit-checkbox-label float-label">Task Type</label>
+                <label className="float-label">Task Type</label>
                 <div className="options-grid">
                   {["Bug", "Feature", "Enhancement"].map((type) => (
                     <label className="option" key={type}>
@@ -301,9 +300,9 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
               </div>
 
               <div className="status">
-                <label className="status-label float-label">Status</label>
+                <label className="float-label">Status</label>
                 <div className="options-grid">
-                  {["Pending", "In Progress", "Completed"].map((s) => (
+                  {["Pending", "In-Progress", "Completed"].map((s) => (
                     <label className="option" key={s}>
                       <input
                         type="radio"
@@ -319,18 +318,21 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 </div>
                 {errors.status && <span className="error">{errors.status}</span>}
               </div>
-          </div>
-          <div className="edit-popup-buttons">
-            <button type="submit" className="button primary" disabled={submitting}>
-              {submitting ? "Updating..." : "Update Task"}
-            </button>
-            <button type="button" className="button cancel" onClick={onClose}>
-              Cancel
-            </button>
-          </div>
-        </form>
+
+            </div>
+
+            <div className="edit-popup-buttons">
+              <button type="submit" className="button primary" disabled={submitting}>
+                {submitting ? "Updating..." : "Update Task"}
+              </button>
+              <button type="button" className="button cancel" onClick={onClose}>
+                Cancel
+              </button>
+            </div>
+          </form>
+
+        </div>
       </div>
-     </div>
     </section>
   );
 }

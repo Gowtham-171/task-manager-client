@@ -1,5 +1,7 @@
-/* ── Overlay ─────────────────────────────────────────── */
-.ftp-overlay {
+
+/* FULL TASK POPUP */
+
+.fulltask-popup {
   position: fixed;
   inset: 0;
   display: flex;
@@ -9,68 +11,57 @@
   z-index: 999;
 }
 
-.ftp-backdrop {
+.fulltask-popup-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
 }
 
-/* ── Outer Modal ─────────────────────────────────────── */
-.ftp-modal {
+.fulltask-popup-box {
+  padding: 20px;
   position: relative;
   z-index: 1000;
   background: #ffffff;
-  border-radius: 20px;
+  border-radius: 16px;
   width: 100%;
   max-width: 600px;
-  max-height: 92vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
-  scrollbar-width: thin;
-  scrollbar-color: #ddd transparent;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
 }
 
-.ftp-modal::-webkit-scrollbar { width: 5px; }
-.ftp-modal::-webkit-scrollbar-thumb { background: #ddd; border-radius: 5px; }
+.fulltask-popup-border {
+  border: 2px solid rgb(232, 234, 237);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
 
-/* ── Modal Header ────────────────────────────────────── */
-.ftp-modal-header {
+.fulltask-popup-header {
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 20px 22px 18px;
   border-bottom: 1px solid #f0f1f3;
-}
-
-.ftp-header-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: #eae8fd;
-  border: 1px solid #d6d2f8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-shrink: 0;
+  background: #ffffff;
 }
 
-.ftp-header-icon i {
-  font-size: 17px;
-  color: #6c5ce7;
-}
-
-.ftp-title {
+.fulltask-popup-title {
   flex: 1;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 700;
   color: #111827;
   margin: 0;
   line-height: 1.4;
 }
 
-.ftp-close {
+.fulltask-popup-close {
   background: #f5f6f8;
   border: 1px solid #e8eaed;
   border-radius: 9px;
@@ -87,20 +78,44 @@
   line-height: 1;
 }
 
-.ftp-close:hover {
+.fulltask-popup-close:hover {
   background: #ebebeb;
   color: #333;
 }
 
-/* ── Body: two columns ───────────────────────────────── */
-.ftp-body {
-  display: grid;
-  grid-template-columns: 1fr 195px;
+.fulltask-popup-scroll {
   flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-color: #ddd transparent;
+  /* scrollbar-width: thin; */
 }
 
-/* ── Left Main ───────────────────────────────────────── */
-.ftp-main {
+/* .fulltask-popup-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.fulltask-popup-scroll::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 5px;
+} */
+
+.fulltask-popup-description {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.72;
+  margin: 0;
+  padding: 18px 22px;
+  border-bottom: 1px solid #f0f1f3;
+  text-align: justify;
+}
+
+.fulltask-popup-body {
+  display: grid;
+  grid-template-columns: 1fr 195px;
+}
+
+.fulltask-popup-main {
   padding: 20px 22px;
   border-right: 1px solid #f0f1f3;
   display: flex;
@@ -108,66 +123,15 @@
   gap: 0;
 }
 
-.ftp-desc {
-  font-size: 13.5px;
-  color: #6b7280;
-  line-height: 1.72;
-  margin: 0 0 20px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid #f0f1f3;
-}
-
-.ftp-section-label {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #adb5bd;
+.fulltask-popup-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgb(93, 95, 239);
   margin-bottom: 10px;
+  display: block;
 }
 
-/* ── Progress ─────────────────────────────────────────── */
-.ftp-progress-block {
-  margin-bottom: 20px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid #f0f1f3;
-}
-
-.ftp-progress-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.ftp-progress-sub {
-  font-size: 13px;
-  color: #374151;
-  font-weight: 500;
-}
-
-.ftp-progress-pct {
-  font-size: 13px;
-  font-weight: 700;
-  color: #6c5ce7;
-}
-
-.ftp-progress-track {
-  height: 7px;
-  background: #f0f1f3;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.ftp-progress-fill {
-  height: 100%;
-  background: #6c5ce7;
-  border-radius: 10px;
-  transition: width 0.4s ease;
-}
-
-/* ── Assignee ─────────────────────────────────────────── */
-.ftp-assignee {
+.fulltask-popup-assignee {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -176,7 +140,7 @@
   border-bottom: 1px solid #f0f1f3;
 }
 
-.ftp-avatar {
+.fulltask-popup-avatar {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -191,20 +155,56 @@
   flex-shrink: 0;
 }
 
-.ftp-assignee-name {
+.fulltask-popup-assignee-name {
   font-size: 13.5px;
   font-weight: 700;
   color: #111827;
 }
 
-.ftp-assignee-email {
+.fulltask-popup-assignee-email {
   font-size: 11.5px;
   color: #9ca3af;
   margin-top: 2px;
 }
 
-/* ── Meta Row: Type + Priority + Status ──────────────── */
-.ftp-meta-row {
+.fulltask-popup-progress {
+  margin-bottom: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #f0f1f3;
+}
+
+.fulltask-popup-progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.fulltask-popup-progress-text {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.fulltask-popup-progress-percent {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.fulltask-popup-progress-range {
+  height: 7px;
+  background: #f0f1f3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.fulltask-popup-progress-fill {
+  height: 100%;
+  background: #6c5ce7;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.fulltask-popup-row {
   display: flex;
   gap: 18px;
   flex-wrap: wrap;
@@ -212,21 +212,19 @@
   padding-top: 2px;
 }
 
-.ftp-meta-group {
+.fulltask-popup-group {
   display: flex;
   flex-direction: column;
   gap: 7px;
 }
 
-/* ── Chips ───────────────────────────────────────────── */
-.ftp-chips {
+.fulltask-popup-items {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
 }
 
-/* Base chip — same style as task type chip in screenshot */
-.ftp-chip {
+.fulltask-popup-item {
   font-size: 12px;
   font-weight: 500;
   color: #555;
@@ -239,22 +237,23 @@
   gap: 5px;
 }
 
-/* Priority chips */
-.ftp-chip.ftp-priority.high {
+.fulltask-popup-item.priority.high {
   background: #fff0f0;
   color: #e05252;
   border-color: #fcc;
   font-weight: 700;
   text-transform: uppercase;
 }
-.ftp-chip.ftp-priority.medium {
+
+.fulltask-popup-item.priority.medium {
   background: #fff4e5;
   color: #d4860a;
   border-color: #fce3b0;
   font-weight: 700;
   text-transform: uppercase;
 }
-.ftp-chip.ftp-priority.low {
+
+.fulltask-popup-item.priority.low {
   background: #e5f7f1;
   color: #00a67e;
   border-color: #b0e8d8;
@@ -262,48 +261,48 @@
   text-transform: uppercase;
 }
 
-/* Status chips */
-.ftp-chip.ftp-status.pending {
+.fulltask-popup-item.status.pending {
   background: #fff4e5;
   color: #d4860a;
   border-color: #fce3b0;
 }
-.ftp-chip.ftp-status.in-progress {
+
+.fulltask-popup-item.status.in-progress {
   background: #eae8fd;
   color: #6c5ce7;
   border-color: #d6d2f8;
 }
-.ftp-chip.ftp-status.completed {
+
+.fulltask-popup-item.status.completed {
   background: #e5f7f1;
   color: #00a67e;
   border-color: #b0e8d8;
 }
 
-/* ── Right Sidebar ────────────────────────────────────── */
-.ftp-sidebar {
+.fulltask-popup-sidebar {
   padding: 20px 18px;
   background: #fafbfc;
   display: flex;
   flex-direction: column;
+  justify-content:center ;
+  gap: 15px;
 }
 
-.ftp-sidebar-label {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #adb5bd;
+.fulltask-popup-sidebar-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgb(93, 95, 239);
   margin-bottom: 16px;
 }
 
-.ftp-detail-item {
+.fulltask-popup-detail-item {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   margin-bottom: 18px;
 }
 
-.ftp-detail-icon {
+.fulltask-popup-detail-icon {
   width: 28px;
   height: 28px;
   border-radius: 8px;
@@ -315,72 +314,67 @@
   margin-top: 1px;
 }
 
-.ftp-detail-icon i {
+.fulltask-popup-detail-icon i {
   font-size: 12px;
   color: #6c5ce7;
 }
 
-.ftp-detail-text {
+.fulltask-popup-detail-text {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.ftp-detail-key {
+.fulltask-popup-detail-key {
   font-size: 10.5px;
   color: #adb5bd;
   font-weight: 500;
 }
 
-.ftp-detail-val {
+.fulltask-popup-detail-val {
   font-size: 13px;
   font-weight: 700;
   color: #111827;
 }
 
-.ftp-detail-link {
+.fulltask-popup-detail-link {
   font-size: 13px;
   font-weight: 700;
   color: #6c5ce7;
   text-decoration: none;
 }
 
-.ftp-detail-link:hover {
+.fulltask-popup-detail-link:hover {
   text-decoration: underline;
 }
 
-/* ── Responsive ──────────────────────────────────────── */
 @media (max-width: 540px) {
-  .ftp-body {
+  .fulltask-popup-body {
     grid-template-columns: 1fr;
   }
 
-  .ftp-main {
+  .fulltask-popup-main {
     border-right: none;
     padding: 18px;
   }
 
-  .ftp-sidebar {
+  .fulltask-popup-sidebar {
     border-top: 1px solid #f0f1f3;
-    background: #fafbfc;
     padding: 18px;
   }
 
-  .ftp-modal-header {
-    padding: 16px 18px 14px;
-  }
-
-  .ftp-title {
+  .fulltask-popup-title {
     font-size: 15px;
   }
 
-  .ftp-meta-row {
+  .fulltask-popup-row {
     gap: 14px;
   }
 }
 
 @media (max-width: 360px) {
-  .ftp-header-icon {
-    display: none;
+  .fulltask-popup-close {
+    width: 26px;
+    height: 26px;
   }
 }

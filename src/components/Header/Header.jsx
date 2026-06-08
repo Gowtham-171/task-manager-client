@@ -5,7 +5,7 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   function toggleMenu() {
-    setMenuOpen((previous) => !previous);
+    setMenuOpen((prev) => !prev);
   }
 
   function closeMenu() {

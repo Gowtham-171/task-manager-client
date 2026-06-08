@@ -5,18 +5,20 @@
   position: fixed;
   inset: 0;
   display: flex;
-  z-index: 999;
   align-items: center;
   justify-content: center;
+  z-index: 999;
 }
 
-.edit-overlay {
+.edit-popup-overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
+  /* background: rgba(0, 0, 0, 0.45); */
+  backdrop-filter: blur(3px);
 }
 
-.edit-popop-box {
+.edit-popup-box {
   position: relative;
   width: 90%;
   max-width: 500px;
@@ -26,79 +28,115 @@
   padding: 20px;
   z-index: 1000;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
 }
 
-.edit-popup-body {
-  max-height: 64vh;
-  overflow-y: auto;
-  padding-right: 6px;
-  overflow-x: hidden;
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-}
-
-.edit-task-border {
+.edit-popup-border {
   border: 2px solid rgb(232, 234, 237);
   border-radius: 16px;
-  padding: 20px;
-}
-
-.edit-task-border h3 {
-  position: relative;
-  bottom: 10px;
-  margin: 0 0 0 -5px;
-}
-
-.edit-popop-box .task-panel-title {
-  margin: 10px 0 5px 2px;
+  overflow: hidden;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
+
+.edit-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 22px 22px 19px;
+  border-bottom: 1px solid #f0f1f3;
+  flex-shrink: 0;
+  background: #ffffff;
+}
+
+.edit-popup-header h3 {
+  margin: 0;
+  font-size: 23px;
+  font-weight: 700;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit-popup-close {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #f5f6f8;
+  border: 1px solid #e8eaed;
+  border-radius: 9px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #999;
+  font-size: 14px;
+  transition: background 0.18s, color 0.18s;
+  line-height: 1;
+}
+
+.edit-popup-close:hover {
+  background: #ebebeb;
+  color: #333;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.edit-popup-scroll {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 16px 20px 20px;
+  scrollbar-color: #ddd transparent;
+  /* scrollbar-width: thin; */
+}
+
+/* .edit-popup-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.edit-popup-scroll::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 5px;
+} */
 
 .edit-popup input,
 .edit-popup select {
   font-size: 14px;
-  margin: 10px 0 13px 0;
+  margin: 8px 0 19px 0;
   padding: 10px;
-  width: 95%;
+  width: 100%;
   border-radius: 6.5px;
   border: 2px solid rgba(0, 0, 0, 0.168);
   outline-color: rgb(93, 95, 239);
-}
-
-.edit-row {
-  display: flex;
-  gap: 14px;
-}
-
-.edit-row .input-date {
-  flex-basis: 47%;
-}
-
-.edit-row .input-time {
-  flex-basis: 47%;
-}
-
-.edit-row .select-priority {
-  flex-basis: 47%;
-}
-
-.edit-row .input-hours {
-  flex-basis: 47%;
+  box-sizing: border-box;
 }
 
 .edit-form .float-label {
   font-size: 12px;
   font-weight: 600;
-  margin-bottom: 6px;
   color: rgb(93, 95, 239);
   display: block;
+  margin-bottom: 2px;
 }
 
 .edit-popup textarea {
-  width: 95%;
-  height: 100px;
-  margin: 10px 0 10px 5px;
+  width: 100%;
+  height: 97px;
+  margin: 8px 0 19px;
   border: 2px solid rgba(0, 0, 0, 0.168);
   border-radius: 6.5px;
   font-family: Arial, Helvetica, sans-serif;
@@ -106,38 +144,50 @@
   outline-color: rgb(93, 95, 239);
   font-size: 14px;
   resize: vertical;
+  line-height: 20px;
+  box-sizing: border-box;
 }
 
-.task-progress-label {
-  text-align: center;
+.edit-popup textarea::placeholder {
   font-size: 14px;
-  position: relative;
-  bottom: 5px;
+}
+
+.edit-row {
+  display: flex;
+  gap: 18px;
+}
+
+.edit-row .input-date,
+.edit-row .input-time,
+.edit-row .select-priority,
+.edit-row .input-hours {
+  flex: 1;
 }
 
 .edit-popup .input-range {
   cursor: pointer;
   accent-color: rgb(93, 95, 239);
   padding: 0;
-  width: 95%;
-  margin-top: 8px;
+  width: 100%;
+  margin: 8px 0px 12px;
+  display: block;
 }
 
-.edit-popup .status-label {
-  position: relative;
-  left: 0;
+.task-progress {
+  margin-bottom: 4px;
+}
+
+.task-progress-label {
+  text-align: center;
+  font-size: 14px;
+  margin: 4px 0 8px;
 }
 
 .options-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.options-grid label {
-  font-size: 14px;
-  color: black;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 14px;
+  margin: 10px 3px 0px;
 }
 
 .option {
@@ -146,6 +196,7 @@
   gap: 8px;
   font-size: 14px;
   cursor: pointer;
+  color: #111827;
 }
 
 .option input {
@@ -156,20 +207,40 @@
   margin: 0;
 }
 
-.edit-popop-box .error {
-  left: -6px;
+.edit-popup .status {
+  margin: 25px 0px 5px;
 }
 
+/* .error {
+  font-size: 12px;
+  color: #c0392b;
+  display: block;
+  margin-bottom: 6px;
+} */
+
+.edit-form .error {
+  margin-left: 2px;
+  bottom: 11px;
+}
+
+.edit-form .edit-check-error {
+  top: 9px;
+}
+
+/* Buttons */
+
 .edit-popup-buttons {
-  padding: 18px 26px 0px 26px;
+  padding: 18px 20px;
   border-top: 1px solid #eee;
   display: flex;
   justify-content: center;
   gap: 12px;
+  flex-shrink: 0;
+  background: #ffffff;
 }
 
 .button {
-  padding: 15px 20px;
+  padding: 18px 24px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -205,46 +276,25 @@
   box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
 }
 
-.popup-close {
-  position: absolute;
-  top: 45px;
-  right: 45px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  color: #999;
-  transition: color 0.2s ease, transform 0.2s ease;
-  z-index: 1;
-}
-
-.popup-close:hover {
-  color: #333;
-  transform: scale(1.1);
-}
-
-/* Mobile View */
-
+/* Mobile */
 @media (max-width: 600px) {
-  .edit-popop-box {
-    width: 90%;
+  .edit-popup-box {
+    width: 92%;
     max-height: 90vh;
-    height: auto;
-    padding: 16px;
-  }
-
-  .edit-task-border {
-    height: auto;
+    padding: 14px;
   }
 
   .edit-row {
-    display: block;
-    gap: 14px;
+    flex-direction: column;
+    gap: 0;
   }
 
-  .edit-row .input-date,
-  .edit-row .select-priority,
-  .edit-row .input-hours {
-    width: 100%;
+  .edit-popup-buttons {
+    padding: 12px 16px;
+  }
+
+  .edit-form .error {
+    margin-left: 10px;
+    bottom: 9px;
   }
 }

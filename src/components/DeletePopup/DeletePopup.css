@@ -1,57 +1,39 @@
-/* DELETE CONFIRMATION POPUP */
 
-.delete-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  z-index: 998;
-  animation: fadeIn 0.15s ease;
-}
+/* DELETE CONFIRMATION POPUP */
 
 .delete-popup {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(92vw, 480px);
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.delete-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  /* -webkit-backdrop-filter: blur(3px); */
+}
+
+.delete-popup-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(92vw, 450px);
   background: #ffffff;
   border-radius: 14px;
   padding: 24px 28px 22px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
   z-index: 999;
-  animation: popIn 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -48%) scale(0.96);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-/* Header row: icon + title side by side */
 .delete-popup-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 10px;
 }
 
 .delete-popup .icon {
@@ -62,15 +44,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 17px;
+  font-size: 21px;
   color: #e53935;
   flex-shrink: 0;
 }
 
 .delete-popup h2 {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 650;
-  color: #111;
+  /* color: rgb(17, 17, 17); */
+  color: black;
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -79,23 +62,22 @@
   font-size: 14px;
   color: #666;
   line-height: 1.55;
-  margin: 0 0 20px 0;
-  padding-left: 48px;
-  /* aligns under the title, past icon + gap */
+  margin: 20px 0 25px 10px;
 }
 
 #delete-task-name {
   font-weight: 600;
-  color: #222;
+  /* color: #222; */
+  color: #777;
 }
 
-.actions {
+.delete-popup-buttons {
   display: flex;
   gap: 10px;
   justify-content: flex-end;
 }
 
-.actions button {
+.delete-popup-buttons button {
   height: 36px;
   padding: 0 18px;
   border-radius: 8px;
@@ -103,7 +85,7 @@
   font-weight: 600;
   border: none;
   cursor: pointer;
-  transition: background 0.18s ease, box-shadow 0.18s ease;
+  /* transition: background 0.18s ease, box-shadow 0.18s ease; */
   font-family: inherit;
   white-space: nowrap;
 }
@@ -128,9 +110,8 @@
   box-shadow: 0 4px 14px rgba(229, 57, 53, 0.38);
 }
 
-/* Responsive */
 @media (max-width: 480px) {
-  .delete-popup {
+  .delete-popup-box {
     width: min(94vw, 480px);
     padding: 20px 18px 18px;
     border-radius: 12px;
@@ -138,7 +119,7 @@
 
   .delete-popup p {
     padding-left: 0;
-    margin-top: 6px;
+    margin: 15px 0 15px 10px;
   }
 
   .actions {

@@ -50,6 +50,7 @@ function Dashboard({ onToast }) {
       taskDescription: formValues.description,
       taskTypes:       formValues.taskTypes,
       taskStatus:      formValues.status,
+      taskProgress : formValues.progress
     };
   }
 

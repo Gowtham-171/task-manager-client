@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { validateTaskForm, formattedTodayDate } from "../../utils/validators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faFilePen} from "@fortawesome/free-solid-svg-icons";
-
 import "./TaskForm.css";
 
 const INITIAL_STATE = {
@@ -86,8 +85,11 @@ function TaskForm({ tasks, onTaskCreated }) {
 
     try {
       setSubmitting(true);
+
       await onTaskCreated(values);
+
       setValues(INITIAL_STATE);
+      
       setErrors({});
     } 
     catch (err) {
@@ -401,9 +403,9 @@ function TaskForm({ tasks, onTaskCreated }) {
             type="radio"
             name="status"
             className="radio in-progress-radio"
-            value="In Progress"
+            value="In-Progress"
             id="InProgress"
-            checked={values.status === "In Progress"}
+            checked={values.status === "In-Progress"}
             onChange={handleRadio}
           />
           <label htmlFor="InProgress" className="radio-label in-progress-label">In Progress</label>
