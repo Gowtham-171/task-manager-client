@@ -8,6 +8,7 @@ async function request(endpoint, options = {}) {
   };
 
   const res = await fetch(url, config);
+  
   const data = await res.json();
 
   if (!res.ok) {

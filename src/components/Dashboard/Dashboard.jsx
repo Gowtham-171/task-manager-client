@@ -68,6 +68,7 @@ function Dashboard({ onToast }) {
     await fetchTasks();
 
     setEditTask(null);
+
     onToast("Task Updated Successfully");
   }
 
@@ -76,7 +77,9 @@ function Dashboard({ onToast }) {
     await deleteTask(deleteTarget.id);
   
     await fetchTasks();
+
     setDeleteTarget(null);
+
     onToast("Task Deleted Successfully");
   }
 
@@ -114,11 +117,7 @@ function Dashboard({ onToast }) {
       )}
 
       {deleteTarget && (
-        <DeletePopup
-          task={deleteTarget}
-          onCancel={() => setDeleteTarget(null)}
-          onConfirm={handleDeleteConfirm}
-        />
+        <DeletePopup task={deleteTarget} onCancel={() => setDeleteTarget(null)} onConfirm={handleDeleteConfirm}/>
       )}
     </>
   );

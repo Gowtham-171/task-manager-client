@@ -61,17 +61,22 @@
   align-items: center;
 }
 
+.task-card-date .date-icon, .person-icon{
+  margin-right: 7px;
+  color: #6c5ce7;;
+}
+
 .task-card-person {
   margin: 0 0 5px 3px !important;
   display: flex !important;
   align-items: center;
 }
 
-.task-card img {
+/* .task-card img {
   height: 17px;
   width: 17px;
   margin-right: 8px;
-}
+} */
 
 .task-actions {
   position: absolute;
@@ -185,11 +190,11 @@
     height: 39px;
   }
 
-  .task-card img {
+  /* .task-card img {
     top: 2.5px;
     height: 18px;
     width: 18px;
-  }
+  } */
 }
 
 @media (min-width: 601px) and (max-width: 1023px) {

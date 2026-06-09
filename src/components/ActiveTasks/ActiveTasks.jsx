@@ -41,10 +41,9 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
               className={`filter-button${activeFilter === f ? " active" : ""}`}
               onClick={() => setActiveFilter(f)}
             >
-              {f.charAt(0).toUpperCase() + f.slice(1)}{" "}
-              <span>
-                ({f === "all" ? safeTasks.length : countByPriority(f)})
-              </span>
+              {f.charAt(0).toUpperCase() + f.slice(1)}
+              {(f === "all" ? safeTasks.length : countByPriority(f)) > 0 && (
+                <span>{" "}({f === "all" ? safeTasks.length : countByPriority(f)})</span>)}
             </a>
           ))}
         </div>
@@ -52,7 +51,7 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
 
       {loading && (
         <div className="empty-task">
-          <h4>Loading tasks...</h4>
+          <h3>Loading Tasks...</h3>
         </div>
       )}
 

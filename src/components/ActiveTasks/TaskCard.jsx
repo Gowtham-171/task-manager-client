@@ -1,9 +1,5 @@
 import React from "react";
 import { formatDisplayDate } from "../../utils/validators";
-import calender from "../../assets/images/calendar-image.png";
-import person from "../../assets/images/person-image.png";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {faSquareCheck} from "@fortawesome/free-solid-svg-icons";
 import "./TaskCard.css";
 
 
@@ -26,16 +22,10 @@ function TaskCard({ task, onClick, onEdit, onDelete }) {
       <div className="task-card-title">
         <h4>{task.taskName}</h4>
         <div className="task-actions">
-          <span
-            className="action-icon-outline edit-btn"
-            onClick={(e) => { e.stopPropagation(); onEdit(task); }}
-          >
+          <span className="action-icon-outline edit-btn" onClick={(e) => { e.stopPropagation(); onEdit(task); }}>
             <i className="fas fa-edit"></i>
           </span>
-          <span
-            className="action-icon-outline delete-btn"
-            onClick={(e) => { e.stopPropagation(); onDelete(task); }}
-          >
+          <span className="action-icon-outline delete-btn" onClick={(e) => { e.stopPropagation(); onDelete(task); }}>
             <i className="fa-solid fa-trash"></i>
           </span>
         </div>
@@ -44,12 +34,12 @@ function TaskCard({ task, onClick, onEdit, onDelete }) {
       <p>{task.taskDescription}</p>
 
       <p className="task-card-date">
-        <img src={calender} alt="Calendar" />
+        <i class="fa-solid fa-calendar date-icon"></i>
         Due: {formatDisplayDate(task.dueDate)}
       </p>
 
       <p className="task-card-person">
-        <img src={person} alt="Person" />
+        <i class="fas fa-user person-icon"></i>
         {task.assigneeName}
       </p>
 
