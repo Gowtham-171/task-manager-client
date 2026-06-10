@@ -6,7 +6,7 @@ function DeletePopup({ task, onCancel, onConfirm }) {
 
   return (
     <div className="delete-popup">
-      <div className="delete-overlay" onClick={onCancel}></div>
+      <div className="delete-overlay"></div>
 
       <div className="delete-popup-box">
 

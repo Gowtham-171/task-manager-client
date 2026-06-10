@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faFilePen} from "@fortawesome/free-solid-svg-icons";
 import "./TaskForm.css";
 
-const INITIAL_STATE = {
+const initialState = {
   username: "",
   name: "",
   email: "",
@@ -18,7 +18,7 @@ const INITIAL_STATE = {
   status: "",
 };
 
-const FIELD_ORDER = [
+const fieldOrder = [
   "username",
   "name",
   "email",
@@ -32,17 +32,19 @@ const FIELD_ORDER = [
   "status",
 ];
 
+
 function TaskForm({ tasks, onTaskCreated }) {
-  const [values, setValues] = useState(INITIAL_STATE);
+  const [values, setValues] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
 
   const fieldRefs = useRef(
-    Object.fromEntries(FIELD_ORDER.map((key) => [key, React.createRef()]))
+    Object.fromEntries(fieldOrder.map((key) => [key, React.createRef()]))
   );
 
   function scrollToField(fieldKey) {
     const wrapperEl = fieldRefs.current[fieldKey]?.current;
+    
     if (wrapperEl) {
       wrapperEl.scrollIntoView({ behavior: "smooth", block: "center" });
       const focusable = wrapperEl.querySelector("input, select, textarea");
@@ -78,7 +80,9 @@ function TaskForm({ tasks, onTaskCreated }) {
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      const firstErrorKey = FIELD_ORDER.find((key) => validationErrors[key]);
+
+      const firstErrorKey = fieldOrder.find((key) => validationErrors[key]);
+
       if (firstErrorKey) scrollToField(firstErrorKey);
       return;
     }
@@ -88,7 +92,7 @@ function TaskForm({ tasks, onTaskCreated }) {
 
       await onTaskCreated(values);
 
-      setValues(INITIAL_STATE);
+      setValues(initialState);
       
       setErrors({});
     } 
@@ -96,7 +100,7 @@ function TaskForm({ tasks, onTaskCreated }) {
       const message = err.message || "";
       let backendErrors = {};
 
-      if (message.toLowerCase().includes("task name")) {
+      if (message.toLowerCase().includes("task name already")) {
         backendErrors = { name: "Task name already exists" };
       } else if (
         message.toLowerCase().includes("assignee name") ||
@@ -132,7 +136,7 @@ function TaskForm({ tasks, onTaskCreated }) {
       }
 
       setErrors(backendErrors);
-      const firstErrorKey = FIELD_ORDER.find((key) => backendErrors[key]);
+      const firstErrorKey = fieldOrder.find((key) => backendErrors[key]);
       if (firstErrorKey) scrollToField(firstErrorKey);
     } 
     finally {
@@ -141,13 +145,13 @@ function TaskForm({ tasks, onTaskCreated }) {
   }
 
   function handleReset() {
-    setValues(INITIAL_STATE);
+    setValues(initialState);
     setErrors({});
   }
 
   const today = formattedTodayDate();
 
-  const firstErrorKey = FIELD_ORDER.find((key) => errors[key]);
+  const firstErrorKey = fieldOrder.find((key) => errors[key]);
 
   return (
     <section className="task-panel-section">

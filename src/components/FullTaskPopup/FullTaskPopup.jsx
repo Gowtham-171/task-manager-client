@@ -15,15 +15,11 @@ function FullTaskPopup({ task, onClose }) {
     .slice(0, 2)
     .toUpperCase();
 
-  const taskTypes = Array.isArray(task.taskTypes)
-    ? task.taskTypes
-    : task.taskTypes
-    ? [task.taskTypes]
-    : [];
+  const taskTypes = Array.isArray(task.taskTypes) ? task.taskTypes: task.taskTypes? [task.taskTypes]: [];
 
   return (
     <section className="fulltask-popup">
-      <div className="fulltask-popup-overlay" onClick={onClose}></div>
+      <div className="fulltask-popup-overlay"></div>
 
       <div className="fulltask-popup-box">
         <div className="fulltask-popup-border">
@@ -126,7 +122,7 @@ function FullTaskPopup({ task, onClose }) {
                   </div>
                   <div className="fulltask-popup-detail-text">
                     <span className="fulltask-popup-detail-key">Estimated hours</span>
-                    <span className="fulltask-popup-detail-val">{task.estimatedHours} hrs</span>
+                    <span className="fulltask-popup-detail-val">{task.estimatedHours} hours</span>
                   </div>
                 </div>
 
@@ -138,11 +134,7 @@ function FullTaskPopup({ task, onClose }) {
                     <div className="fulltask-popup-detail-text">
                       <span className="fulltask-popup-detail-key">Project URL</span>
                       
-                      <a className="fulltask-popup-detail-link"
-                        href={task.projectUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
+                      <a className="fulltask-popup-detail-link" href={task.projectUrl} target="_blank">
                         View project ↗
                       </a>
                     </div>

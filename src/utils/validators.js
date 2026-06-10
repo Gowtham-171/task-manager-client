@@ -9,25 +9,31 @@ export function validateTaskForm(values, existingTasks = [], editTaskId = null) 
   // Assignee Name
   if (!values.username || values.username.trim() === "") {
     errors.username = "Assignee Name is required";
-  } else if (values.username.trim().length < 3) {
+  }
+  else if (values.username.trim().length < 3) {
     errors.username = "Assignee Name must be at least 3 characters";
-  } else if (!userNameValidator.test(values.username.trim())) {
+  }
+  else if (values.username.trim().length > 50) {
+    errors.username = "Assignee Name cannot exceed 50 characters";
+  }
+  else if (!userNameValidator.test(values.username.trim())) {
     errors.username = "Assignee name cannot include numbers or special characters";
-  } else if (
-    values.username.trim().startsWith(".") ||
-    values.username.trim().endsWith(".")
-  ) {
+  }
+  else if (values.username.trim().startsWith(".") || values.username.trim().endsWith(".")) {
     errors.username = "Assignee Name cannot start or end with a dot";
-  } else if (!userPattern.test(values.username.trim())) {
+  }
+  else if (!userPattern.test(values.username.trim())) {
     errors.username = "Invalid Assignee Name format";
   }
 
   // Task Name
   if (!values.name || values.name.trim() === "") {
     errors.name = "Task Name is required";
-  } else if (!userNameValidator.test(values.name.trim())) {
-    errors.name = "Task name cannot include numbers or special characters";
-  } else {
+  }
+  else if (values.name.trim().length > 100) {
+    errors.name = "Task name cannot exceed 100 characters";
+  }
+  else {
     const tasks = Array.isArray(existingTasks) ? existingTasks : [];
     const duplicate = tasks.some(
       (t) =>
@@ -40,9 +46,11 @@ export function validateTaskForm(values, existingTasks = [], editTaskId = null) 
   // Email
   if (!values.email || values.email.trim() === "") {
     errors.email = "Assignee Email is required";
-  } else if (!values.email.includes("@")) {
+  }
+  else if (!values.email.includes("@")) {
     errors.email = "Email must include '@' symbol";
-  } else if (!emailPattern.test(values.email.trim())) {
+  }
+  else if (!emailPattern.test(values.email.trim())) {
     errors.email = "Please enter a valid email (e.g., name@email.com)";
   }
 
@@ -54,7 +62,8 @@ export function validateTaskForm(values, existingTasks = [], editTaskId = null) 
   // Due Time
   if (!values.time) {
     errors.time = "Due Time is required";
-  } else if (values.date === formattedTodayDate()) {
+  }
+  else if (values.date === formattedTodayDate()) {
     if (values.time < formattedCurrentTime()) {
       errors.time = "Due Time cannot be in the past";
     }
@@ -68,24 +77,37 @@ export function validateTaskForm(values, existingTasks = [], editTaskId = null) 
   // Estimated Hours
   if (!values.hours && values.hours !== 0) {
     errors.hours = "Estimated Hours are required";
-  } else if (Number(values.hours) <= 0) {
+  }
+  else if (Number(values.hours) <= 0) {
     errors.hours = "Estimated Hours must be more than 0";
+  }
+  else if (Number(values.hours) > 100) {
+    errors.hours = "Estimated Hours must be less 100";
+  }
+  else if (!Number.isInteger(Number(values.hours))) {
+    errors.hours = "Estimated Hours must be a whole number";
   }
 
   // Project URL
   if (!values.url || values.url.trim() === "") {
     errors.url = "Project URL is required";
-  } else if (!/^https?:\/\//i.test(values.url.trim())) {
+  }
+  else if (!/^https?:\/\//i.test(values.url.trim())) {
     errors.url = "Enter a valid URL starting with http:// or https://";
-  } else if (!urlPattern.test(values.url.trim())) {
+  }
+  else if (!urlPattern.test(values.url.trim())) {
     errors.url = "Invalid URL";
   }
 
   // Description
   if (!values.description || values.description.trim() === "") {
     errors.description = "Task Description is required";
-  } else if (values.description.trim().length < 3) {
+  }
+  else if (values.description.trim().length < 3) {
     errors.description = "Task description must be at least 3 characters";
+  }
+  else if (values.description.trim().length > 2000) {
+    errors.description = "Task description cannot exceed 2000 characters";
   }
 
   // Task Types

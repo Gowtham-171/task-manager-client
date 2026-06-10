@@ -24,8 +24,8 @@ function Dashboard({ onToast }) {
 
       setTasks(Array.isArray(data.data) ? data.data : []); 
     } 
-    catch (err) {
-      console.error("Failed to fetch tasks:", err);
+    catch (error) {
+      console.error("Failed to fetch tasks:", error);
       setTasks([]);
     } 
     finally {

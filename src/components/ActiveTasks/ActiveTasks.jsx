@@ -13,12 +13,7 @@ function ActiveTasks({ tasks, loading, onCardClick, onEditClick, onDeleteClick }
 
   const safeTasks = Array.isArray(tasks) ? tasks : [];
 
-  const filtered =
-    activeFilter === "all"
-      ? safeTasks
-      : safeTasks.filter(
-          (task) => (task.priorityLevel ?? "").toLowerCase() === activeFilter
-        );
+  const filtered = activeFilter === "all" ? safeTasks : safeTasks.filter((task) => (task.priorityLevel ?? "").toLowerCase() === activeFilter);
 
   function countByPriority(p) {
     return safeTasks.filter((task) => (task.priorityLevel ?? "").toLowerCase() === p).length;

@@ -115,8 +115,9 @@
 }
 
 .task-card-container.scroll {
-  height: 930px;
+  height: 900px;
   overflow-y: auto;
+  scrollbar-color: #ddd transparent;
 }
 
 /* TASK-LIST */

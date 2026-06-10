@@ -68,10 +68,14 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
 
     try {
       setSubmitting(true);
+
       await onUpdate(task.id, values);
+
       onClose();
     } catch (err) {
+
       console.error("Update failed:", err);
+      
     } finally {
       setSubmitting(false);
     }
@@ -81,7 +85,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
 
   return (
     <section className="edit-popup">
-      <div className="edit-popup-overlay" onClick={onClose}></div>
+      <div className="edit-popup-overlay"></div>
 
       <div className="edit-popup-box">
         <div className="edit-popup-border">

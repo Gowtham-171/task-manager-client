@@ -34,12 +34,12 @@ function TaskCard({ task, onClick, onEdit, onDelete }) {
       <p>{task.taskDescription}</p>
 
       <p className="task-card-date">
-        <i class="fa-solid fa-calendar date-icon"></i>
+        <i className="fa-solid fa-calendar date-icon"></i>
         Due: {formatDisplayDate(task.dueDate)}
       </p>
 
       <p className="task-card-person">
-        <i class="fas fa-user person-icon"></i>
+        <i className="fas fa-user person-icon"></i>
         {task.assigneeName}
       </p>
 
