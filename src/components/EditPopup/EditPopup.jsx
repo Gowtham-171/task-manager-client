@@ -4,32 +4,73 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePen } from "@fortawesome/free-solid-svg-icons";
 import "./EditPopup.css";
 
+const fieldOrder = [
+  "username", 
+  "name", 
+  "email", 
+  "date", 
+  "time",
+  "priority", 
+  "hours", 
+  "url", 
+  "description", 
+  "taskTypes", 
+  "status"
+];
+
 function EditPopup({ task, tasks, onClose, onUpdate }) {
   const [values, setValues] = useState(null);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const [serverError, setServerError] = useState("");
 
   useEffect(() => {
     if (task) {
       setValues({
-        username: task.assigneeName || "",
-        name: task.taskName || "",
-        email: task.assigneeEmail || "",
-        date: task.dueDate || "",
-        time: task.dueTime || "",
-        priority: task.priorityLevel || "Low",
-        hours: task.estimatedHours || "",
-        url: task.projectUrl || "",
+        username:  task.assigneeName || "",
+        name:      task.taskName || "",
+        email:     task.assigneeEmail || "",
+        date:      task.dueDate || "",
+        time:      task.dueTime || "",
+        priority:  task.priorityLevel || "Low",
+        hours:     task.estimatedHours ?? "", 
+        url:       task.projectUrl || "",
         description: task.taskDescription || "",
-        progress: task.taskProgress ?? 0,
+        progress:  task.taskProgress ?? 0,
         taskTypes: Array.isArray(task.taskTypes) ? task.taskTypes : [],
-        status: task.taskStatus || "",
+        status:    task.taskStatus || "",
       });
       setErrors({});
+      setServerError("");
     }
   }, [task?.id]);
 
   if (!task || !values) return null;
+
+  function scrollToField(fieldKey) {
+    const idMap = {
+      username:    "taskUsername",
+      name:        "taskName",
+      email:       "taskEmail",
+      date:        "taskDate",
+      time:        "taskTime",
+      priority:    "taskPriority",
+      hours:       "taskHours",
+      url:         "taskUrl",
+      description: "taskDescription",
+      taskTypes:   "taskTypesWrapper",
+      status:      "statusWrapper"
+    };
+
+    const el = document.getElementById(idMap[fieldKey]);
+    if (!el) return;
+
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    if (["INPUT", "SELECT", "TEXTAREA"].includes(el.tagName)) {
+      el.focus({ preventScroll: true });
+    }
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -59,10 +100,14 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setServerError("");
+
     const validationErrors = validateTaskForm(values, tasks, task.id);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      const firstErrorKey = fieldOrder.find((key) => validationErrors[key]);
+      if (firstErrorKey) scrollToField(firstErrorKey);
       return;
     }
 
@@ -72,11 +117,11 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
       await onUpdate(task.id, values);
 
       onClose();
-    } catch (err) {
-
-      console.error("Update failed:", err);
-      
-    } finally {
+    } 
+    catch (err) {
+      setServerError(err.message || "Update failed. Please try again.");
+    } 
+    finally {
       setSubmitting(false);
     }
   }
@@ -91,7 +136,9 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
         <div className="edit-popup-border">
 
           <div className="edit-popup-header">
-            <h3 className="edit-popup-title"><FontAwesomeIcon icon={faFilePen} /> Edit Task</h3>
+            <h3 className="edit-popup-title">
+              <FontAwesomeIcon icon={faFilePen} /> Edit Task
+            </h3>
             <button className="edit-popup-close" onClick={onClose} aria-label="Close">
               <i className="fa-solid fa-xmark"></i>
             </button>
@@ -100,6 +147,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
           <form className="edit-form" onSubmit={handleSubmit}>
             <div className="edit-popup-scroll">
 
+              {/* Assignee Name */}
               <div className="input-username">
                 <label className="float-label">Assignee Name</label>
                 <input
@@ -118,6 +166,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 )}
               </div>
 
+              {/* Task Name */}
               <div className="input-name">
                 <label className="float-label">Task Name</label>
                 <input
@@ -136,6 +185,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 )}
               </div>
 
+              {/* Assignee Email */}
               <div className="input-email">
                 <label className="float-label">Assignee Email</label>
                 <input
@@ -154,6 +204,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 )}
               </div>
 
+              {/* Due Date & Time */}
               <div className="edit-row">
                 <div className="input-date">
                   <label className="float-label">Due Date</label>
@@ -191,6 +242,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 </div>
               </div>
 
+              {/* Priority & Hours */}
               <div className="edit-row">
                 <div className="select-priority">
                   <label className="float-label">Priority</label>
@@ -204,7 +256,9 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                     <option value="Medium">Medium Priority</option>
                     <option value="High">High Priority</option>
                   </select>
-                  {errors.priority && <span className="error">{errors.priority}</span>}
+                  {errors.priority && (
+                    <span className="error">{errors.priority}</span>
+                  )}
                 </div>
 
                 <div className="input-hours">
@@ -229,6 +283,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 </div>
               </div>
 
+              {/* Project URL */}
               <div className="project-url">
                 <label className="float-label">Project URL</label>
                 <input
@@ -247,6 +302,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 )}
               </div>
 
+              {/* Task Description */}
               <div className="task-description">
                 <label className="float-label">Task Description</label>
                 <textarea
@@ -264,6 +320,7 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 )}
               </div>
 
+              {/* Task Progress */}
               <div className="task-progress">
                 <label className="float-label">Task Progress</label>
                 <input
@@ -279,7 +336,8 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 <p className="task-progress-label">{values.progress}%</p>
               </div>
 
-              <div className="task-types">
+              {/* Task Types */}
+              <div className="task-types" id="taskTypesWrapper">
                 <label className="float-label">Task Type</label>
                 <div className="options-grid">
                   {["Bug", "Feature", "Enhancement"].map((type) => (
@@ -303,7 +361,8 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                 )}
               </div>
 
-              <div className="status">
+              {/* Status */}
+              <div className="status" id="statusWrapper">
                 <label className="float-label">Status</label>
                 <div className="options-grid">
                   {["Pending", "In-Progress", "Completed"].map((s) => (
@@ -320,8 +379,17 @@ function EditPopup({ task, tasks, onClose, onUpdate }) {
                     </label>
                   ))}
                 </div>
-                {errors.status && <span className="error">{errors.status}</span>}
+                {errors.status && (
+                  <span className="error">{errors.status}</span>
+                )}
               </div>
+
+              {/* Server Error */}
+              {serverError && (
+                <span className="error">
+                  <i className="fa-solid fa-triangle-exclamation" style={{ color: "#c0392b" }}></i> {serverError}
+                </span>
+              )}
 
             </div>
 

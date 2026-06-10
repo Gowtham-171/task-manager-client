@@ -102,36 +102,47 @@ function TaskForm({ tasks, onTaskCreated }) {
 
       if (message.toLowerCase().includes("task name already")) {
         backendErrors = { name: "Task name already exists" };
-      } else if (
+      } 
+      else if (
         message.toLowerCase().includes("assignee name") ||
         message.toLowerCase().includes("assigneename")
       ) {
         backendErrors = { username: message };
-      } else if (message.toLowerCase().includes("email")) {
+      } 
+      else if (message.toLowerCase().includes("email")) {
         backendErrors = { email: message };
-      } else if (
+      } 
+      else if (
         message.toLowerCase().includes("due date") ||
         message.toLowerCase().includes("duedate")
       ) {
         backendErrors = { date: message };
-      } else if (
+      } 
+      else if (
         message.toLowerCase().includes("due time") ||
         message.toLowerCase().includes("duetime")
       ) {
         backendErrors = { time: message };
-      } else if (message.toLowerCase().includes("priority")) {
+      } 
+      else if (message.toLowerCase().includes("priority")) {
         backendErrors = { priority: message };
-      } else if (message.toLowerCase().includes("hour")) {
+      } 
+      else if (message.toLowerCase().includes("hour")) {
         backendErrors = { hours: message };
-      } else if (message.toLowerCase().includes("url")) {
+      } 
+      else if (message.toLowerCase().includes("url")) {
         backendErrors = { url: message };
-      } else if (message.toLowerCase().includes("description")) {
+      } 
+      else if (message.toLowerCase().includes("description")) {
         backendErrors = { description: message };
-      } else if (message.toLowerCase().includes("task type")) {
+      } 
+      else if (message.toLowerCase().includes("task type")) {
         backendErrors = { taskTypes: message };
-      } else if (message.toLowerCase().includes("status")) {
+      } 
+      else if (message.toLowerCase().includes("status")) {
         backendErrors = { status: message };
-      } else {
+      } 
+      else {
         backendErrors = { name: message };
       }
 

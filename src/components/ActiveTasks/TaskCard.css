@@ -63,7 +63,7 @@
 
 .task-card-date .date-icon, .person-icon{
   margin-right: 7px;
-  color: #6c5ce7;;
+  color: #1976D2;
 }
 
 .task-card-person {
@@ -71,12 +71,6 @@
   display: flex !important;
   align-items: center;
 }
-
-/* .task-card img {
-  height: 17px;
-  width: 17px;
-  margin-right: 8px;
-} */
 
 .task-actions {
   position: absolute;

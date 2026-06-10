@@ -14,7 +14,7 @@ export function validateTaskForm(values, existingTasks = [], editTaskId = null) 
     errors.username = "Assignee Name must be at least 3 characters";
   }
   else if (values.username.trim().length > 50) {
-    errors.username = "Assignee Name cannot exceed 50 characters";
+    errors.username = "Assignee Name must be less than 50 characters";
   }
   else if (!userNameValidator.test(values.username.trim())) {
     errors.username = "Assignee name cannot include numbers or special characters";
@@ -37,8 +37,7 @@ export function validateTaskForm(values, existingTasks = [], editTaskId = null) 
     const tasks = Array.isArray(existingTasks) ? existingTasks : [];
     const duplicate = tasks.some(
       (t) =>
-        t.taskName.toLowerCase() === values.name.trim().toLowerCase() &&
-        t.id !== editTaskId
+        t.taskName.toLowerCase() === values.name.trim().toLowerCase() && t.id !== editTaskId
     );
     if (duplicate) errors.name = "Task Name already exists";
   }
